@@ -80,10 +80,10 @@
     
     <div class="header">
     	<ul class="headermenu">
-        	<li><a href="dashboard.html"><span class="icon icon-flatscreen"></span>Dashboard</a></li>
-            <li><a href="manageblog.html"><span class="icon icon-pencil"></span>Manage Blog</a></li>
-            <li class="current"><a href="messages.html"><span class="icon icon-message"></span>Messages</a></li>
-            <li><a href="reports.html"><span class="icon icon-chart"></span>Reports</a></li>
+        	<li><a href="@{MainAction.manageblog}"><span class="icon icon-flatscreen"></span>Dashboard</a></li>
+            <li><a href="@{MainAction.messages}"><span class="icon icon-pencil"></span>Manage Blog</a></li>
+            <li class="current"><a href="@{MainAction.messages}"><span class="icon icon-message"></span>Messages</a></li>
+            <li><a href="@{MainAction.reports}"><span class="icon icon-chart"></span>Reports</a></li>
         </ul>
         
         <div class="headerwidget">
@@ -103,7 +103,7 @@
     
     <div class="vernav iconmenu">
     	<ul>
-        	<li class="current"><a href="manageblog.html" class="inbox">Inbox</a></li>
+        	<li class="current"><a href="@{MainAction.messages}" class="inbox">Inbox</a></li>
             <li><a href="newpost.html" class="drafts">Drafts</a></li>
             <li><a href="" class="sent">Sent Mail</a></li>
             <li><a href="" class="trash">Trash</a></li>

@@ -79,10 +79,10 @@
     
     <div class="header">
     	<ul class="headermenu">
-        	<li><a href="dashboard.html"><span class="icon icon-flatscreen"></span>Dashboard</a></li>
-            <li class="current"><a href="manageblog.html"><span class="icon icon-pencil"></span>Manage Blog</a></li>
-            <li><a href="messages.html"><span class="icon icon-message"></span>Messages</a></li>
-            <li><a href="reports.html"><span class="icon icon-chart"></span>Reports</a></li>
+        	<li><a href="@{MainAction.dashboard}"><span class="icon icon-flatscreen"></span>首页</a></li>
+            <li class="current"><a href="@{MainAction.manageblog}"><span class="icon icon-pencil"></span>博客管理</a></li>
+<!--             <li><a href="@{MainAction.messages}"><span class="icon icon-message"></span>Messages</a></li> -->
+<!--             <li><a href="@{MainAction.reports}"><span class="icon icon-chart"></span>Reports</a></li> -->
         </ul>
         
         <div class="headerwidget">
@@ -102,7 +102,7 @@
     
     <div class="vernav">
     	<ul>
-        	<li class="current"><a href="manageblog.html" class="editor">Posts</a></li>
+        	<li class="current"><a href="@{MainAction.manageblog}" class="editor">Posts</a></li>
             <li><a href="newpost.html">Create New Post</a></li>
             <li><a href="">Comments</a></li>
             <li><a href="">Categories</a></li>
