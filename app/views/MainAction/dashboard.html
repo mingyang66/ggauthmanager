@@ -9,8 +9,6 @@
 <script type="text/javascript" src="/public/cpts/js/plugins/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript" src="/public/cpts/js/plugins/jquery.cookie.js"></script>
 <script type="text/javascript" src="/public/cpts/js/plugins/jquery.uniform.min.js"></script>
-<script type="text/javascript" src="/public/cpts/js/plugins/jquery.flot.min.js"></script>
-<script type="text/javascript" src="/public/cpts/js/plugins/jquery.flot.resize.min.js"></script>
 <script type="text/javascript" src="/public/cpts/js/plugins/jquery.slimscroll.js"></script>
 <script type="text/javascript" src="/public/cpts/js/custom/general.js"></script>
 <script type="text/javascript" src="/public/cpts/js/custom/dashboard.js"></script>
@@ -58,11 +56,10 @@
                 	<a href=""><img src="/public/cpts/images/thumbs/avatarbig.png" alt="" /></a>
                     <div class="changetheme">
                     	切换主题: <br />
+                        <a class="contrast"></a>
                     	<a class="default"></a>
                         <a class="blueline"></a>
                         <a class="greenline"></a>
-                        <a class="contrast"></a>
-                        <a class="custombg"></a>
                     </div>
                 </div><!--avatar-->
                 <div class="userdata">
@@ -86,8 +83,6 @@
             <li><a href="@{MainAction.manageblog}"><span class="icon icon-pencil"></span>用户管理</a></li>
             <li><a href="@{MainAction.manageblog}"><span class="icon icon-pencil"></span>角色管理</a></li>
             <li><a href="@{MainAction.manageblog}"><span class="icon icon-pencil"></span>菜单管理</a></li>
-<!--             <li><a href="@{MainAction.messages}"><span class="icon icon-message"></span>查看消息</a></li> -->
-<!--             <li><a href="@{MainAction.reports}"><span class="icon icon-chart"></span>统计报表</a></li> -->
         </ul>
         
        <div class="headerwidget">
@@ -107,42 +102,63 @@
     
     <div class="vernav2 iconmenu">
     	<ul>
-        	<li><a href="#formsub" class="editor">表单提交</a>
+        	<li><a href="#usersub" class="editor">用户管理</a>
             	<span class="arrow"></span>
-            	<ul id="formsub">
-               		<li><a href="forms.html">基础表单</a></li>
-                    <li><a href="wizard.html">表单验证</a></li>
-                    <li><a href="editor.html">编辑器</a></li>
+            	<ul id="usersub">
+               		<li><a href="#">用户列表</a></li>
+                    <li><a href="#">新增用户</a></li>
                 </ul>
             </li>
-            <!--<li><a href="filemanager.html" class="gallery">文件管理</a></li>-->
-            <li><a href="elements.html" class="elements">网页元素</a></li>
-            <li><a href="widgets.html" class="widgets">网页插件</a></li>
-            <li><a href="calendar.html" class="calendar">日历事件</a></li>
-            <li><a href="support.html" class="support">客户支持</a></li>
-            <li><a href="typography.html" class="typo">文字排版</a></li>
-            <li><a href="tables.html" class="tables">数据表格</a></li>
-			<li><a href="buttons.html" class="buttons">按钮 &amp; 图标</a></li>
-            <li><a href="#error" class="error">错误页面</a>
+        	<li><a href="#groupsub" class="editor">分组管理</a>
             	<span class="arrow"></span>
-            	<ul id="error">
-               		<li><a href="notfound.html">404错误页面</a></li>
-                    <li><a href="forbidden.html">403错误页面</a></li>
-                    <li><a href="internal.html">500错误页面</a></li>
-                    <li><a href="offline.html">503错误页面</a></li>
+            	<ul id="groupsub">
+               		<li><a href="#">分组列表</a></li>
+                    <li><a href="#">新增分组</a></li>
                 </ul>
             </li>
-            <li><a href="#addons" class="addons">其他页面</a>
+        	<li><a href="#rolesub" class="editor">角色管理</a>
             	<span class="arrow"></span>
-            	<ul id="addons">
-               		<li><a href="newsfeed.html">新闻订阅</a></li>
-                    <li><a href="profile.html">资料页面</a></li>
-                    <li><a href="productlist.html">产品列表</a></li>
-                    <li><a href="photo.html">图片视频分享</a></li>
-                    <li><a href="gallery.html">相册</a></li>
-                    <li><a href="invoice.html">购物车</a></li>
+            	<ul id="rolesub">
+               		<li><a href="#">角色列表</a></li>
+                    <li><a href="#">新增角色</a></li>
                 </ul>
             </li>
+        	<li><a href="#menusub" class="editor">菜单管理</a>
+            	<span class="arrow"></span>
+            	<ul id="menusub">
+               		<li><a href="#">菜单列表</a></li>
+                    <li><a href="#">新增菜单</a></li>
+                </ul>
+            </li>
+        	<li><a href="#pagesub" class="editor">页面管理</a>
+            	<span class="arrow"></span>
+            	<ul id="pagesub">
+               		<li><a href="#">页面列表</a></li>
+                    <li><a href="#">新增页面</a></li>
+                </ul>
+            </li>
+        	<li><a href="#elementsub" class="editor">元素管理</a>
+            	<span class="arrow"></span>
+            	<ul id="elementsub">
+               		<li><a href="#">元素列表</a></li>
+                    <li><a href="#">新增元素</a></li>
+                </ul>
+            </li>
+        	<li><a href="#productlinesub" class="editor">产品线管理</a>
+            	<span class="arrow"></span>
+            	<ul id="productlinesub">
+               		<li><a href="#">产品线列表</a></li>
+                    <li><a href="#">新增产品线</a></li>
+                </ul>
+            </li>
+        	<li><a href="#whitelistsub" class="editor">白名单管理</a>
+            	<span class="arrow"></span>
+            	<ul id="whitelistsub">
+               		<li><a href="#">白名单列表</a></li>
+                    <li><a href="#">新增白名单</a></li>
+                </ul>
+            </li>
+            <li><a href="#" class="elements">网页元素</a></li>
         </ul>
         <a class="togglemenu"></a>
         <br /><br />

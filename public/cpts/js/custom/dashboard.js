@@ -30,17 +30,6 @@ jQuery(document).ready(function(){
 		}
 	
 			
-		var plot = jQuery.plot(jQuery("#chartplace"),
-			   [ { data: flash, label: "Flash(x)", color: "#069"}, { data: html5, label: "HTML5(x)", color: "#FF6600"} ], {
-				   series: {
-					   lines: { show: true, fill: true, fillColor: { colors: [ { opacity: 0.05 }, { opacity: 0.15 } ] } },
-					   points: { show: true }
-				   },
-				   legend: { position: 'nw'},
-				   grid: { hoverable: true, clickable: true, borderColor: '#ccc', borderWidth: 1, labelMargin: 10 },
-				   yaxis: { min: 0, max: 15 }
-				 });
-		
 		var previousPoint = null;
 		jQuery("#chartplace").bind("plothover", function (event, pos, item) {
 			jQuery("#x").text(pos.x.toFixed(2));
