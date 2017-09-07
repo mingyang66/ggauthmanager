@@ -4,7 +4,7 @@
 
 # Home page
 GET     /                                       Application.index
-
+*       /productline/add_productline_view       ProductLineAction.addProductLineView
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

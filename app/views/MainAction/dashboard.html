@@ -22,8 +22,12 @@
 <!--[if lt IE 9]>
 	<script src="/public/cpts/js/plugins/css3-mediaqueries.js"></script>
 <![endif]-->
+<style type="text/css">
+.hornav{
+ 	height: 5px;
+} 
+</style>
 </head>
-
 <body class="withvernav">
 <div class="bodywrapper">
     <div class="topheader">
@@ -146,7 +150,7 @@
             	<span class="arrow"></span>
             	<ul id="productlinesub">
                		<li><a href="#">产品线列表</a></li>
-                    <li><a href="#">新增产品线</a></li>
+                    <li dataurl = "/ProductLineAction/addProductLineView"><a href="#">新增产品线</a></li>
                 </ul>
             </li>
         	<li><a href="#whitelistsub" class="editor">白名单管理</a>
@@ -164,15 +168,41 @@
     </div><!--leftmenu-->
         
     <div class="centercontent">
+    	<div class="pageheader">
+            <h1 class="pagetitle">产品线管理</h1>
+<!--             <span class="pagedesc">The content below are loaded using ajax</span> -->
+            
+            <ul class="hornav blogmenu">
+<!--                 <li class="current"><a href="allposts.html">产品线</a></li> -->
+<!--                 <li><a href="published.html">Published (5)</a></li> -->
+<!--                 <li><a href="draft.html">Draft (3)</a></li> -->
+<!--                 <li><a href="trash.html">Trash (1)</a></li> -->
+            </ul>
+        </div>
         <div id="contentwrapper" class="contentwrapper">
         
-         df
-        
-        </div><!--contentwrapper-->
-	</div><!-- centercontent -->
-    
-    
-</div><!--bodywrapper-->
+        </div>
+	</div>
+</div>
+<script type="text/javascript">
+jQuery(".vernav2.iconmenu li ").click(function(){
+	var url = jQuery(this).attr('dataurl');
+	if(url && url.startWith('/')){
+		jQuery.ajax({url:url,success:function(result){
+			jQuery("#contentwrapper").html(jQuery(result));
+	    }});
+	}
+	return false;
+});
+String.prototype.startWith=function(str){     
+	  var reg=new RegExp("^"+str);     
+	  return reg.test(this);        
+}  
 
+String.prototype.endWith=function(str){     
+  var reg=new RegExp(str+"$");     
+  return reg.test(this);        
+}
+</script>
 </body>
 </html>
