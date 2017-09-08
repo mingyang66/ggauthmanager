@@ -4,8 +4,6 @@ package framework.yaomy.util;
 import java.util.HashMap;
 import java.util.Map;
 
-import play.utils.Utils.Maps;
-
 /**
  * @Description:返回结果类
  * @version 1.0
