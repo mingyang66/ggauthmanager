@@ -43,7 +43,7 @@ public class ProductLineAction extends Controller{
 		DBCollection collection = GGMongoOperator.getGGBusinessDBCollection("gg_product_line");
 		
 		Document query = new Document();
-//		query.put("status", 1);
+		query.put("status", 1);
 		
 		Document sort = new Document();
     	sort.put("_id", -1);
@@ -84,6 +84,7 @@ public class ProductLineAction extends Controller{
 		doc.append("product_line", product.getProduct_line());
 		doc.append("product_name", product.getProduct_name());
 		doc.append("product_desc", product.getProduct_desc());
+		doc.append("status", 1);
 		doc.append("creator", "admin");
 		doc.append("operator", "admin");
 		doc.append("create_time", new Date());
