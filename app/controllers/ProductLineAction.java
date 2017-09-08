@@ -56,7 +56,7 @@ public class ProductLineAction extends Controller{
 		
 		WriteResult result = collection.insertOne(doc);
 		if(result.getModifiedCount() == 1) {
-			 renderJSON(ResultUtil.getReturnResult(1001, "新增产品线成功！"));
+			 renderJSON(ResultUtil.getReturnResult(100, "新增产品线成功！"));
 		} else {
 			renderJSON(ResultUtil.getReturnResult(101, "新增产品线失败！"));
 		}

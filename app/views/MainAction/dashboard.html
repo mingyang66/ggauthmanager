@@ -204,12 +204,15 @@
 jQuery(".vernav2.iconmenu li ").click(function(){
 	var url = jQuery(this).attr('dataurl');
 	if(url && url.startWith('/')){
-		jQuery.ajax({url:url,success:function(result){
-			jQuery("#contentwrapper").html(jQuery(result));
-	    }});
+		loadUrl(url)
 	}
 	return false;
 });
+var loadUrl = function(url){
+	jQuery.ajax({url:url,success:function(result){
+		jQuery("#contentwrapper").html(jQuery(result));
+    }});
+}
 String.prototype.startWith=function(str){     
 	  var reg=new RegExp("^"+str);     
 	  return reg.test(this);        
