@@ -1,207 +1,104 @@
-<script type="text/javascript" src="/public/cpts/js/plugins/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="/public/cpts/js/custom/tables.js"></script>
-           
-<table cellpadding="0" cellspacing="0" border="0" class="stdtable" id="dyntable">
-    <colgroup>
-        <col class="con0" />
-        <col class="con1" />
-        <col class="con0" />
-        <col class="con1" />
-        <col class="con0" />
-    </colgroup>
-    <thead>
-        <tr>
-            <th class="head0">Rendering engine</th>
-            <th class="head1">Browser</th>
-            <th class="head0">Platform(s)</th>
-            <th class="head1">Engine version</th>
-            <th class="head0">CSS grade</th>
-        </tr>
-    </thead>
-    <tfoot>
-        <tr>
-            <th class="head0">Rendering engine</th>
-            <th class="head1">Browser</th>
-            <th class="head0">Platform(s)</th>
-            <th class="head1">Engine version</th>
-            <th class="head0">CSS grade</th>
-        </tr>
-    </tfoot>
-    <tbody>
-        <tr class="gradeA">
-            <td>Webkit</td>
-            <td>Safari 1.2</td>
-            <td>OSX.3</td>
-            <td class="center">125.5</td>
-            <td class="center">A</td>
-        </tr>
-        <tr class="gradeA">
-            <td>Webkit</td>
-            <td>Safari 1.3</td>
-            <td>OSX.3</td>
-            <td class="center">312.8</td>
-            <td class="center">A</td>
-        </tr>
-        <tr class="gradeA">
-            <td>Webkit</td>
-            <td>Safari 2.0</td>
-            <td>OSX.4+</td>
-            <td class="center">419.3</td>
-            <td class="center">A</td>
-        </tr>
-        <tr class="gradeA">
-            <td>Webkit</td>
-            <td>Safari 3.0</td>
-            <td>OSX.4+</td>
-            <td class="center">522.1</td>
-            <td class="center">A</td>
-        </tr>
-        <tr class="gradeA">
-            <td>Webkit</td>
-            <td>OmniWeb 5.5</td>
-            <td>OSX.4+</td>
-            <td class="center">420</td>
-            <td class="center">A</td>
-        </tr>
-        <tr class="gradeA">
-            <td>Webkit</td>
-            <td>iPod Touch / iPhone</td>
-            <td>iPod</td>
-            <td class="center">420.1</td>
-            <td class="center">A</td>
-        </tr>
-        <tr class="gradeA">
-            <td>Webkit</td>
-            <td>S60</td>
-            <td>S60</td>
-            <td class="center">413</td>
-            <td class="center">A</td>
-        </tr>
-        <tr class="gradeA">
-            <td>Presto</td>
-            <td>Opera 7.0</td>
-            <td>Win 95+ / OSX.1+</td>
-            <td class="center">-</td>
-            <td class="center">A</td>
-        </tr>
-        <tr class="gradeA">
-            <td>Presto</td>
-            <td>Opera 7.5</td>
-            <td>Win 95+ / OSX.2+</td>
-            <td class="center">-</td>
-            <td class="center">A</td>
-        </tr>
-        <tr class="gradeA">
-            <td>Presto</td>
-            <td>Opera 8.0</td>
-            <td>Win 95+ / OSX.2+</td>
-            <td class="center">-</td>
-            <td class="center">A</td>
-        </tr>
-        <tr class="gradeA">
-            <td>Presto</td>
-            <td>Opera 8.5</td>
-            <td>Win 95+ / OSX.2+</td>
-            <td class="center">-</td>
-            <td class="center">A</td>
-        </tr>
-        <tr class="gradeA">
-            <td>Presto</td>
-            <td>Opera 9.0</td>
-            <td>Win 95+ / OSX.3+</td>
-            <td class="center">-</td>
-            <td class="center">A</td>
-        </tr>
-        <tr class="gradeA">
-            <td>Presto</td>
-            <td>Opera 9.2</td>
-            <td>Win 88+ / OSX.3+</td>
-            <td class="center">-</td>
-            <td class="center">A</td>
-        </tr>
-        <tr class="gradeA">
-            <td>Presto</td>
-            <td>Opera 9.5</td>
-            <td>Win 88+ / OSX.3+</td>
-            <td class="center">-</td>
-            <td class="center">A</td>
-        </tr>
-        <tr class="gradeA">
-            <td>Presto</td>
-            <td>Opera for Wii</td>
-            <td>Wii</td>
-            <td class="center">-</td>
-            <td class="center">A</td>
-        </tr>
-        <tr class="gradeA">
-            <td>Presto</td>
-            <td>Nokia N800</td>
-            <td>N800</td>
-            <td class="center">-</td>
-            <td class="center">A</td>
-        </tr>
-        <tr class="gradeA">
-            <td>Presto</td>
-            <td>Nintendo DS browser</td>
-            <td>Nintendo DS</td>
-            <td class="center">8.5</td>
-            <td class="center">C/A<sup>1</sup></td>
-        </tr>
-        <tr class="gradeC">
-            <td>KHTML</td>
-            <td>Konqureror 3.1</td>
-            <td>KDE 3.1</td>
-            <td class="center">3.1</td>
-            <td class="center">C</td>
-        </tr>
-        <tr class="gradeA">
-            <td>KHTML</td>
-            <td>Konqureror 3.3</td>
-            <td>KDE 3.3</td>
-            <td class="center">3.3</td>
-            <td class="center">A</td>
-        </tr>
-        <tr class="gradeA">
-            <td>KHTML</td>
-            <td>Konqureror 3.5</td>
-            <td>KDE 3.5</td>
-            <td class="center">3.5</td>
-            <td class="center">A</td>
-        </tr>
-        <tr class="gradeX">
-            <td>Tasman</td>
-            <td>Internet Explorer 4.5</td>
-            <td>Mac OS 8-9</td>
-            <td class="center">-</td>
-            <td class="center">X</td>
-        </tr>
-        <tr class="gradeC">
-            <td>Tasman</td>
-            <td>Internet Explorer 5.1</td>
-            <td>Mac OS 7.6-9</td>
-            <td class="center">1</td>
-            <td class="center">C</td>
-        </tr>
-        <tr class="gradeC">
-            <td>Tasman</td>
-            <td>Internet Explorer 5.2</td>
-            <td>Mac OS 8-X</td>
-            <td class="center">1</td>
-            <td class="center">C</td>
-        </tr>
-        <tr class="gradeA">
-            <td>Misc</td>
-            <td>NetFront 3.1</td>
-            <td>Embedded devices</td>
-            <td class="center">-</td>
-            <td class="center">C</td>
-        </tr>
-        <tr class="gradeA">
-            <td>Misc</td>
-            <td>NetFront 3.4</td>
-            <td>Embedded devices</td>
-            <td class="center">-</td>
-            <td class="center">A</td>
-        </tr>
-    </tbody>
-</table>
+<div class="container">
+	<div class="row">
+	       <div class="table-responsive">
+	         <table class="table table-striped table-bordered table-hover">
+	         	<thead>
+		           <tr>
+		           	 <th>Id</th>
+		             <th>产品线名称</th>
+		             <th>产品线编号</th>
+		             <th>操作人</th>
+		             <th>创建时间</th>
+		             <th>修改时间</th>
+		             <th>操作</th>
+		           </tr>
+	         	</thead>
+	         	<tbody>
+		           	#{list items:list, as:'item'}
+		 		   <tr>
+		 		     <td>${item._id}</td>
+		             <td>${item.product_name}</td>
+		             <td>${item.product_line}</td>
+		             <td>${item.operator}</td>
+		             <td>${item.create_time}</td>
+		             <td>${item.update_time}</td>
+		             <td> </td>
+		           </tr>
+		           #{/list}
+	         	</tbody>
+	         </table>
+	       </div><!-- /.box-body -->
+	       <div class="box-footer clearfix" style="text-align: center;">
+	         <ul class="pagination no-margin">
+	         #{if maxPage>1}
+	         <li value="1"><a href="javascript: void(0);">首页</a></li>
+	         	#{if page<=1}
+	            <li class="disabled"><a href="#">上一页</a></li>
+	            #{/if}
+	            #{else}
+	            <li value="up"><a href="#">上一页</a></li>
+	            #{/else}
+	           #{list items:pages, as:'p'}
+					#{if page == p} 
+						<li class="active" value="${p}"><a href="javascript: void(0);">${p}</a></li>
+					#{/if}
+					#{else}
+						<li value="${p}"><a href="javascript: void(0);">${p}</a></li>
+					#{/else}
+				#{/list}
+				#{if page==maxPage}
+	            <li class="disabled"><a href="#">下一页</a></li>
+	            #{/if}
+	            #{else}
+	            <li value="next"><a href="#">下一页</a></li>
+	            #{/else}
+	           <li class="disabled"><a href="javascript: void(0);">共${maxPage}页</a></li>
+	           <span style="font-size: 15px;font-weight: 400;line-height: 100%;">&nbsp;&nbsp;&nbsp;到第&nbsp;
+	           <input type="text" style="width: 30px;height: 30px;text-align: center;" value="${page}" id="pageInput">&nbsp;&nbsp;页&nbsp;&nbsp;
+	           <input type="button" class="btn btn-primary btn-sm" value="确定" id="jumpToPage">
+	           </span>
+	          #{/if}
+	         </ul>
+	       </div>
+	     </div><!-- /.box -->  
+	</div>
+<script type="text/javascript">
+	jQuery(function(){
+		<!--跳转到指定的具体页-->
+		jQuery("#jumpToPage").click(function(){
+			jumpToPage();
+		});
+	});
+	var jumpToPage = function(){
+		var maxPage=jQuery{maxPage};
+		var page=jQuery.trim(jQuery("#pageInput").val());
+		if(page=='' || page==null){
+			page=1;
+		}
+		if(page>maxPage){
+			page=maxPage;
+		}
+		jQuery("#current_page").prop('value', page);
+		jQuery("#queryForm").submit();
+	}
+	<!--分页按钮点击事件-->
+	jQuery("ul.pagination li").click(function(event){
+		var maxPage=jQuery{maxPage};
+		var page=jQuery{page};
+		var curentPage=jQuery(this).attr('value');
+		<!--点击下一页事件-->
+		if(curentPage=='next' && page<maxPage){
+			page=page+1;
+		}
+		<!--点击下一页事件-->
+		if(curentPage=='up' && maxPage>1 && page>1){
+			page=page-1;
+		}
+		<!--点击具体的页数按钮时间-->
+		if(curentPage!=page && curentPage>=1 && curentPage<=maxPage){
+			page=curentPage;
+		}
+		jQuery("#current_page").prop('value', page);
+		jQuery("#queryForm").submit();
+	});
+</script>

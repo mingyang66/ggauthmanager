@@ -2,13 +2,17 @@
 package controllers;
 
 import java.util.Date;
+import java.util.List;
 
 import models.ProductLine;
 
 import org.bson.Document;
 
 import play.mvc.Controller;
+import utils.PageUtil;
 import framework.yaomy.mongo.pool.DBCollection;
+import framework.yaomy.mongo.pool.DBCursor;
+import framework.yaomy.mongo.pool.GGDBCursor;
 import framework.yaomy.mongo.pool.GGMongoOperator;
 import framework.yaomy.mongo.pool.WriteResult;
 import framework.yaomy.util.ResultUtil;
@@ -24,8 +28,40 @@ import framework.yaomy.util.ResultUtil;
  */
 public class ProductLineAction extends Controller{
 
-	public static void list(){
-		render();
+	/**
+	 * 
+	 * @Description:获取产品线列表
+	 * @author yaomy
+	 * @date 2017年9月8日 下午5:57:55
+	 */
+	public static void list(Integer page){
+		//每页显示的条数
+		int rows=12;
+		//第几页
+		if (page == null || page < 1) {
+			page = 1;
+		}
+		DBCollection collection = GGMongoOperator.getGGBusinessDBCollection("gg_product_line");
+		
+		Document query = new Document();
+//		query.put("status", 1);
+		
+		Document sort = new Document();
+    	sort.put("_id", -1);
+    	
+    	DBCursor cursor = collection.find(query).sort(sort).limit(rows).skip((page-1)*rows);
+    	List<Document> list = GGDBCursor.getListDocs(cursor);
+    	
+    	//数据总条数
+		int count = Long.valueOf(collection.count(query)).intValue();
+		//总页数
+		int maxPage = count == 0 ? 1 : (count - 1) / rows + 1; 
+		if (page > maxPage) {
+			page = maxPage;
+		}
+		//页面显示的页面索引
+		List<Integer> pages = PageUtil.getShowPages(page, maxPage); 
+		render(list, pages, maxPage, page);
 	}
 	/**
 	 * 
