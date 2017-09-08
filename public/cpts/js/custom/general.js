@@ -12,10 +12,9 @@
 jQuery.noConflict();
 
 jQuery(document).ready(function(){
-								
-								
-	///// SHOW/HIDE USERDATA WHEN USERINFO IS CLICKED ///// 
-	
+	/**
+	 * 右上角管理员菜单展示
+	 */
 	jQuery('.userinfo').click(function(){
 		if(!jQuery(this).hasClass('active')) {
 			jQuery('.userinfodrop').show();
@@ -33,7 +32,6 @@ jQuery(document).ready(function(){
 	
 	
 	///// SHOW/HIDE NOTIFICATION /////
-	
 	jQuery('.notification a').click(function(){
 		var t = jQuery(this);
 		var url = t.attr('href');
@@ -78,7 +76,7 @@ jQuery(document).ready(function(){
 	
 	///// NOTIFICATION CONTENT /////
 	
-	jQuery('.notitab a').live('click', function(){
+	jQuery('.notitab a').on('click', function(){
 		var id = jQuery(this).attr('href');
 		jQuery('.notitab li').removeClass('current'); //reset current 
 		jQuery(this).parent().addClass('current');
@@ -94,8 +92,8 @@ jQuery(document).ready(function(){
 	
 	
 	///// SHOW/HIDE VERTICAL SUB MENU /////	
-	
-	jQuery('.vernav > ul li a, .vernav2 > ul li a').each(function(){
+	//给左侧菜单注册点击事件展开二级菜单
+	jQuery('.vernav2 > ul li a').each(function(){
 		var url = jQuery(this).attr('href');
 		jQuery(this).click(function(){
 			if(jQuery(url).length > 0) {
@@ -117,14 +115,13 @@ jQuery(document).ready(function(){
 	});
 	
 	
-	///// SHOW/HIDE SUB MENU WHEN MENU COLLAPSED /////
-	jQuery('.menucoll > ul > li, .menucoll2 > ul > li').live('mouseenter mouseleave',function(e){
-		if(e.type == 'mouseenter') {
-			jQuery(this).addClass('hover');
-			jQuery(this).find('ul').show();	
-		} else {
-			jQuery(this).removeClass('hover').find('ul').hide();	
-		}
+	//左侧菜单鼠标进入后弹出二级菜单
+	jQuery(document).on('mouseenter','.menucoll2 li', function(e){
+		jQuery(this).addClass('hover');
+		jQuery(this).find('ul').show();	
+		jQuery(this).siblings().removeClass('hover').find('ul').hide();
+	}).on('mouseleave','.menucoll2  li', function(){
+		jQuery(this).removeClass('hover').find('ul').hide();
 	});
 	
 	
@@ -292,11 +289,11 @@ jQuery(document).ready(function(){
 	}
 	
 	
-	jQuery('.searchicon').live('click',function(){
+	jQuery('.searchicon').on('click',function(){
 		jQuery('.searchinner').show();
 	});
 	
-	jQuery('.searchcancel').live('click',function(){
+	jQuery('.searchcancel').on('click',function(){
 		jQuery('.searchinner').hide();
 	});
 	

@@ -52,10 +52,11 @@
 .entry_content h4 a { color: #ff4800; }
 .vernav2 ul li.current a { color: #ff4800; }
 .vernav2 ul li.current ul li.current a { color: #ff4800; }
-.vernav ul li span.arrow, .vernav2 ul li span.arrow { background-image: url(../images/contrast/menuarrow.png); }
-.iconmenu ul li a { background-image: url(../images/contrast/icons_sprite.png); }
-.vernav2 ul li.current a:hover { background-image: url(../images/contrast/icons_sprite.png); }
-.menucoll2 > ul > li.current > a { background-image: url(../images/contrast/icons_sprite.png); }
+.vernav ul li span.arrow, .vernav2 ul li span.arrow { background-image: url(../images/default/menuarrow.png); }
+.iconmenu ul li a { background-image: url(../images/default/icons_sprite.png); }
+.vernav2 ul li.current a:hover { background-image: url(../images/default/icons_sprite.png); }
+.menucoll2 > ul > li.current > a { background-image: url(../images/default/icons_sprite.png); }
+/* .menucoll2 > ul > li.current > a { background-image: url(../images/contrast/icons_sprite.png); } */
 .menucoll2 ul li.current ul span { color: #ff4800; }
 div.tagsinput span.tag { background-color: #ff4800; border-color: #de4204; }
 form button { background-color: #ff4800; border-color: #de4204; }

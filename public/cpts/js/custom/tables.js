@@ -105,7 +105,7 @@ jQuery(document).ready(function(){
 			toggleData.append(data);						//inject data read from server
 			parentRow.next().fadeIn();						//show inserted new row
 			parentRow.addClass('hiderow');					//hide this row to look like replacing the newly inserted row
-			jQuery('input,select').uniform();
+//			jQuery('input,select').uniform();
 		});
 				
 		return false;
@@ -113,7 +113,7 @@ jQuery(document).ready(function(){
 		
 		
 	///// REMOVE TOGGLED QUICK VIEW WHEN CLICKING SUBMIT/CANCEL BUTTON /////	
-	jQuery('.toggledata button.cancel, .toggledata button.submit').live('click',function(){
+	jQuery('.toggledata button.cancel, .toggledata button.submit').on('click',function(){
 		jQuery(this).parents('.toggledata').animate({height: 0},200, function(){
 			jQuery(this).parents('tr').prev().removeClass('hiderow');															 
 			jQuery(this).parents('tr').remove();
@@ -131,14 +131,14 @@ jQuery(document).ready(function(){
 		"sPaginationType": "full_numbers",
 		"aaSortingFixed": [[0,'asc']],
 		"fnDrawCallback": function(oSettings) {
-            jQuery('input:checkbox,input:radio').uniform();
+//            jQuery('input:checkbox,input:radio').uniform();
 			//jQuery.uniform.update();
         }
 	});
 
 	
 	///// TRANSFORM CHECKBOX AND RADIO BOX USING UNIFORM PLUGIN /////
-	jQuery('input:checkbox,input:radio').uniform();
+//	jQuery('input:checkbox,input:radio').uniform();
 	
 	
 });

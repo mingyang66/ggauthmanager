@@ -26,7 +26,7 @@
 .shortcuts li a:hover { border-color: #78ce07; }
 .topheader .left h1.logo { color: #78ce07; }
 .header { border-bottom-color: #78ce07; }
-.headermenu li.current a { background-image: url(../images/greenline/arrow-active.png); }
+.headermenu li.current a { background-image: url(../images/default/arrow-active.png); }
 .notitab li.current a { background-color: #78ce07; }
 .notitab { border-bottom-color: #78ce07; }
 .notitab li a:hover { color: #78ce07; }
@@ -42,10 +42,10 @@
 .entry_content h4 a { color: #78ce07; }
 .vernav2 ul li.current a { color: #78ce07; }
 .vernav2 ul li.current ul li.current a { color: #78ce07; }
-.vernav ul li span.arrow, .vernav2 ul li span.arrow { background-image: url(../images/greenline/menuarrow.png); }
-.iconmenu ul li a { background-image: url(../images/greenline/icons_sprite.png); }
-.vernav2 ul li.current a:hover { background-image: url(../images/greenline/icons_sprite.png); }
-.menucoll2 > ul > li.current > a { background-image: url(../images/greenline/icons_sprite.png); }
+.vernav ul li span.arrow, .vernav2 ul li span.arrow { background-image: url(../images/default/menuarrow.png); }
+.iconmenu ul li a { background-image: url(../images/default/icons_sprite.png); }
+.vernav2 ul li.current a:hover { background-image: url(../images/default/icons_sprite.png); }
+.menucoll2 > ul > li.current > a { background-image: url(../images/default/icons_sprite.png); }
 .menucoll2 ul li.current ul span { color: #78ce07; }
 div.tagsinput span.tag { background-color: #78ce07; border-color: #6cbc05; }
 form button { background-color: #78ce07; border-color: #6cbc05; }
@@ -57,7 +57,7 @@ form button { background-color: #78ce07; border-color: #6cbc05; }
 #popup_ok { background-color: #78ce07; border-color: #6cbc05; opacity: 0.8; }
 #popup_ok:hover { background-color: #78ce07; border-color: #6cbc05; opacity: 1; }
 .wizard .hormenu li a.selected span.h2, .wizard .hormenu li a.done span.h2 { color: #78ce07; }
-.wizard .hormenu li a span.dot span { background-image: url(../images/greenline/steps.png); }
+.wizard .hormenu li a span.dot span { background-image: url(../images/default/steps.png); }
 .actionBar a { background-color: #78ce07; border-color: #6cbc05; }
 .wizard .tabbedmenu li a.selected span.h2, .wizard .tabbedmenu li a.selected span,
 .wizard .tabbedmenu li a.done span.h2, .wizard .tabbedmenu li a.done span{ color: #78ce07; }

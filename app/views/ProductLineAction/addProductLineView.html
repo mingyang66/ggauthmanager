@@ -49,7 +49,7 @@ jQuery(".stdbtn").click(function(){
 function validForm(){
 	debugger
 	var product_line = jQuery.trim(jQuery("product_line").val());
-	if(product_line && product_line == '') {
+	if(product_line == '') {
 		layer.tips('请选择上传图片', '#product_line');
 		return false;
 	}
