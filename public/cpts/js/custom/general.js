@@ -156,45 +156,45 @@ jQuery(document).ready(function(){
 	
 	///// SEARCH BOX WITH AUTOCOMPLETE /////
 	
-	var availableTags = [
-			"ActionScript",
-			"AppleScript",
-			"Asp",
-			"BASIC",
-			"C",
-			"C++",
-			"Clojure",
-			"COBOL",
-			"ColdFusion",
-			"Erlang",
-			"Fortran",
-			"Groovy",
-			"Haskell",
-			"Java",
-			"JavaScript",
-			"Lisp",
-			"Perl",
-			"PHP",
-			"Python",
-			"Ruby",
-			"Scala",
-			"Scheme"
-		];
-	jQuery('#keyword').autocomplete({
-		source: availableTags
-	});
+//	var availableTags = [
+//			"ActionScript",
+//			"AppleScript",
+//			"Asp",
+//			"BASIC",
+//			"C",
+//			"C++",
+//			"Clojure",
+//			"COBOL",
+//			"ColdFusion",
+//			"Erlang",
+//			"Fortran",
+//			"Groovy",
+//			"Haskell",
+//			"Java",
+//			"JavaScript",
+//			"Lisp",
+//			"Perl",
+//			"PHP",
+//			"Python",
+//			"Ruby",
+//			"Scala",
+//			"Scheme"
+//		];
+//	jQuery('#keyword').autocomplete({
+//		source: availableTags
+//	});
 	
 	
 	///// SEARCH BOX ON FOCUS /////
 	
-	jQuery('#keyword').bind('focusin focusout', function(e){
-		var t = jQuery(this);
-		if(e.type == 'focusin' && t.val() == 'Enter keyword(s)') {
-			t.val('');
-		} else if(e.type == 'focusout' && t.val() == '') {
-			t.val('Enter keyword(s)');	
-		}
-	});
+//	jQuery('#keyword').bind('focusin focusout', function(e){
+//		var t = jQuery(this);
+//		if(e.type == 'focusin' && t.val() == 'Enter keyword(s)') {
+//			t.val('');
+//		} else if(e.type == 'focusout' && t.val() == '') {
+//			t.val('Enter keyword(s)');	
+//		}
+//	});
 	
 	
 	///// NOTIFICATION CLOSE BUTTON /////
@@ -289,32 +289,32 @@ jQuery(document).ready(function(){
 	}
 	
 	
-	jQuery('.searchicon').on('click',function(){
-		jQuery('.searchinner').show();
-	});
-	
-	jQuery('.searchcancel').on('click',function(){
-		jQuery('.searchinner').hide();
-	});
+//	jQuery('.searchicon').on('click',function(){
+//		jQuery('.searchinner').show();
+//	});
+//	
+//	jQuery('.searchcancel').on('click',function(){
+//		jQuery('.searchinner').hide();
+//	});
 	
 	
 	
 	///// ON LOAD WINDOW /////
-	function reposSearch() {
-		if(jQuery(window).width() < 520) {
-			if(jQuery('.searchinner').length == 0) {
-				jQuery('.search').wrapInner('<div class="searchinner"></div>');	
-				jQuery('<a class="searchicon"></a>').insertBefore(jQuery('.searchinner'));
-				jQuery('<a class="searchcancel"></a>').insertAfter(jQuery('.searchinner button'));
-			}
-		} else {
-			if(jQuery('.searchinner').length > 0) {
-				jQuery('.search form').unwrap();
-				jQuery('.searchicon, .searchcancel').remove();
-			}
-		}
-	}
-	reposSearch();
+//	function reposSearch() {
+//		if(jQuery(window).width() < 520) {
+//			if(jQuery('.searchinner').length == 0) {
+//				jQuery('.search').wrapInner('<div class="searchinner"></div>');	
+//				jQuery('<a class="searchicon"></a>').insertBefore(jQuery('.searchinner'));
+//				jQuery('<a class="searchcancel"></a>').insertAfter(jQuery('.searchinner button'));
+//			}
+//		} else {
+//			if(jQuery('.searchinner').length > 0) {
+//				jQuery('.search form').unwrap();
+//				jQuery('.searchicon, .searchcancel').remove();
+//			}
+//		}
+//	}
+//	reposSearch();
 	
 	///// ON RESIZE WINDOW /////
 	jQuery(window).resize(function(){

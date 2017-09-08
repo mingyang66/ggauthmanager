@@ -1,11 +1,14 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> -->
+<!-- <html xmlns="http://www.w3.org/1999/xhtml"> -->
+<!DOCTYPE html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>控制台页面</title>
-<!-- <link rel="stylesheet" href="/public/bootstrap/css/bootstrap.min.css" type="text/css" />/ -->
+<link rel="stylesheet" href="/public/bootstrap/css/bootstrap.min.css" type="text/css" />
 <link rel="stylesheet" href="/public/cpts/css/style.default.css" type="text/css" />
+<link rel="stylesheet" href="/public/fontawesome/css/font-awesome.min.css" type="text/css"/>
 
 <script type="text/javascript" src="/public/javascripts/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="/public/cpts/js/plugins/jquery-ui-1.8.16.custom.min.js"></script>
@@ -13,7 +16,7 @@
 <script type="text/javascript" src="/public/cpts/js/plugins/jquery.slimscroll.js"></script>
 <script type="text/javascript" src="/public/cpts/js/custom/general.js"></script>
 <script type="text/javascript" src="/public/cpts/js/custom/dashboard.js"></script>
-<!-- <script type="text/javascript" src="/public/bootstrap/js/bootstrap.min.js"></script> -->
+<script type="text/javascript" src="/public/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/public/layer/layer.js"></script>
 
 <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="/public/cpts/js/plugins/excanvas.min.js"></script><![endif]-->
@@ -46,9 +49,13 @@
             <span class="slogan">权限管理系统</span>
             
             <div class="search">
-            	<form action="" method="post">
-                	<input type="text" name="keyword" id="keyword" value="请输入" />
-                    <button class="submitbutton"></button>
+            	<form class="form-inline" action="" method="post">
+<!--                 	<input type="text" name="keyword" id="keyword" value="请输入" /> -->
+<!--                     <button class="submitbutton"></button> -->
+					<div class="form-group">
+					    <label class="sr-only" for="keyword">Email address</label>
+					    <input type="text" class="form-control" name="keyword" id="keyword" placeholder="请输入..."/>
+					 </div>
                 </form>
             </div><!--search-->
             
@@ -70,8 +77,8 @@
                 	<a href=""><img src="/public/cpts/images/thumbs/avatarbig.png" alt="" /></a>
                     <div class="changetheme">
                     	切换主题: <br />
-                        <a class="contrast"></a>
                     	<a class="default"></a>
+                        <a class="contrast"></a>
                         <a class="blueline"></a>
                         <a class="greenline"></a>
                     </div>
@@ -114,56 +121,56 @@
     
     <div class="vernav2 iconmenu">
     	<ul>
-        	<li><a href="#usersub" class="editor">用户管理</a>
+        	<li><a href="#usersub" class="elements">用户管理</a>
             	<span class="arrow"></span>
             	<ul id="usersub">
                		<li><a href="#">用户列表</a></li>
                     <li><a href="#">新增用户</a></li>
                 </ul>
             </li>
-        	<li><a href="#groupsub" class="editor">分组管理</a>
+        	<li><a href="#groupsub" class="support">分组管理</a>
             	<span class="arrow"></span>
             	<ul id="groupsub">
                		<li><a href="#">分组列表</a></li>
                     <li><a href="#">新增分组</a></li>
                 </ul>
             </li>
-        	<li><a href="#rolesub" class="editor">角色管理</a>
+        	<li><a href="#rolesub" class="elements">角色管理</a>
             	<span class="arrow"></span>
             	<ul id="rolesub">
                		<li><a href="#">角色列表</a></li>
                     <li><a href="#">新增角色</a></li>
                 </ul>
             </li>
-        	<li><a href="#menusub" class="editor">菜单管理</a>
+        	<li><a href="#menusub" class="support">菜单管理</a>
             	<span class="arrow"></span>
             	<ul id="menusub">
                		<li><a href="#">菜单列表</a></li>
                     <li><a href="#">新增菜单</a></li>
                 </ul>
             </li>
-        	<li><a href="#pagesub" class="editor">页面管理</a>
+        	<li><a href="#pagesub" class="elements">页面管理</a>
             	<span class="arrow"></span>
             	<ul id="pagesub">
                		<li><a href="#">页面列表</a></li>
                     <li><a href="#">新增页面</a></li>
                 </ul>
             </li>
-        	<li><a href="#elementsub" class="editor">元素管理</a>
+        	<li><a href="#elementsub" class="support">元素管理</a>
             	<span class="arrow"></span>
             	<ul id="elementsub">
                		<li><a href="#">元素列表</a></li>
                     <li><a href="#">新增元素</a></li>
                 </ul>
             </li>
-        	<li><a href="#productlinesub" class="editor">产品线管理</a>
+        	<li><a href="#productlinesub" class="elements">产品线管理</a>
             	<span class="arrow"></span>
             	<ul id="productlinesub">
                		<li dataurl = "/ProductLineAction/list"><a href="#">产品线列表</a></li>
                     <li dataurl = "/ProductLineAction/addProductLineView"><a href="#">新增产品线</a></li>
                 </ul>
             </li>
-        	<li><a href="#whitelistsub" class="editor">白名单管理</a>
+        	<li><a href="#whitelistsub" class="support">白名单管理</a>
             	<span class="arrow"></span>
             	<ul id="whitelistsub">
                		<li><a href="#">白名单IP列表</a></li>
