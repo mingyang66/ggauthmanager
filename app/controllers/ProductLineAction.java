@@ -3,6 +3,7 @@ package controllers;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.bson.Document;
 
@@ -49,7 +50,7 @@ public class ProductLineAction extends Controller{
     	sort.put("_id", -1);
     	
     	DBCursor cursor = collection.find(query).sort(sort).limit(rows).skip((page-1)*rows);
-    	List<Document> list = GGDBCursor.getListDocs(cursor);
+    	List<Map<String, Object>> list = GGDBCursor.getListMap(cursor);
     	
     	//数据总条数
 		int count = Long.valueOf(collection.count(query)).intValue();

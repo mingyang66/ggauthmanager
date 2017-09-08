@@ -5,8 +5,9 @@
 	         	<thead>
 		           <tr>
 		           	 <th>Id</th>
-		             <th>产品线名称</th>
 		             <th>产品线编号</th>
+		             <th>产品线名称</th>
+		             <th>创建人</th>
 		             <th>操作人</th>
 		             <th>创建时间</th>
 		             <th>修改时间</th>
@@ -16,9 +17,10 @@
 	         	<tbody>
 		           	#{list items:list, as:'item'}
 		 		   <tr>
-		 		     <td>${item._id}</td>
-		             <td>${item.product_name}</td>
+		 		     <td>${item_index}</td>
 		             <td>${item.product_line}</td>
+		             <td>${item.product_name}</td>
+		             <td>${item.creator}</td>
 		             <td>${item.operator}</td>
 		             <td>${item.create_time}</td>
 		             <td>${item.update_time}</td>
