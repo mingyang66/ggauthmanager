@@ -28,6 +28,7 @@
 		           </tr>
 		           #{/list}
 	         	</tbody>
+	         	#{if maxPage > 1}
 	         	<tfoot>
 	         		<tr>
 	         			<td colspan="8">
@@ -51,6 +52,7 @@
 	         			</td>
 	         		</tr>
 	         	</tfoot>
+	         	#{/if}
 	         </table>
 	       </div><!-- /.box-body -->
 	     </div><!-- /.box -->  
@@ -58,11 +60,19 @@
 <script type="text/javascript">
 	jQuery('.pagination .pageli').click(function(e){
 		var page = jQuery(this).attr('datapage');
-		if(page == 'previous' && ${page > 1}) {
-			page = ${page}-1
+		if(page == 'previous') {
+			if(${page > 1})	{
+				page = ${page}-1
+			}else{
+				return false;
+			}		
 		}
-		if(page == 'next' && ${page < maxPage}) {
-			page = ${page}+1
+		if(page == 'next') {
+			if(${page < maxPage}){
+				page = ${page}+1
+			}else{
+				return false;
+			}
 		}
 		var data = {page:page};
 		loadUrl('/ProductLineAction/list',data);
