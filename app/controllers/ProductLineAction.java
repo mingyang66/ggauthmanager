@@ -36,7 +36,7 @@ public class ProductLineAction extends Controller{
 	 */
 	public static void list(Integer page){
 		//每页显示的条数
-		int rows=12;
+		int rows=10;
 		//第几页
 		if (page == null || page < 1) {
 			page = 1;
@@ -60,7 +60,7 @@ public class ProductLineAction extends Controller{
 			page = maxPage;
 		}
 		//页面显示的页面索引
-		List<Integer> pages = PageUtil.getShowPages(page, maxPage); 
+		List<String> pages = PageUtil.getShowPages(page, maxPage); 
 		render(list, pages, maxPage, page);
 	}
 	/**

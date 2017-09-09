@@ -4,23 +4,41 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class PageUtil {
 
-	public static List<Integer> getShowPages(int currentPage, int maxPage) {
-		List<Integer> pages = new ArrayList<Integer>();
-		pages.add(currentPage - 3);
-		pages.add(currentPage - 2);
-		pages.add(currentPage - 1);
-		pages.add(currentPage);
-		pages.add(currentPage + 1);
-		pages.add(currentPage + 2);
-		pages.add(currentPage + 3);
-		Iterator<Integer> it = pages.iterator();
-		while (it.hasNext()) {
-			int p =it.next();
-			if (p <= 0 || p > maxPage) {
-				it.remove();
+	public static List<String> getShowPages(int currentPage, int maxPage) {
+		List<String> pages = new ArrayList<String>();
+		int n = 5;
+		int j = 0;
+		if(currentPage >= n){
+			j = currentPage - n + 1;
+			if(currentPage == maxPage && j > 1){
+				j--;
 			}
+			if(currentPage < maxPage) {
+				n = currentPage + 1;
+			} else {
+				n = currentPage;
+			}
+		}
+		if(currentPage <= n) {
+			currentPage = 1;
+		}
+		for(int i=j;i<n;i++){
+			pages.add(String.valueOf(currentPage+i));
+		}
+		int lastPage = Integer.parseInt(pages.get(pages.size()-1));
+		if(lastPage+1 == maxPage) {
+			pages.add(String.valueOf(maxPage));
+		} else {
+			pages.add("...");
+			pages.add(String.valueOf(maxPage));
+		}
+		if(lastPage == maxPage){
+			pages.remove("...");
+			pages.remove(String.valueOf(maxPage));
 		}
 		return pages;
 	}

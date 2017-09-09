@@ -207,12 +207,13 @@
 jQuery(".vernav2.iconmenu li ").click(function(){
 	var url = jQuery(this).attr('dataurl');
 	if(url && url.startWith('/')){
-		loadUrl(url)
+		loadUrl(url,null)
 	}
 	return false;
 });
-var loadUrl = function(url){
-	jQuery.ajax({url:url,success:function(result){
+var loadUrl = function(url,data){
+	jQuery.ajax({url:url,data,success:function(result){
+		jQuery("#contentwrapper").html('');
 		jQuery("#contentwrapper").html(jQuery(result));
     }});
 }
