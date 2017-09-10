@@ -98,4 +98,68 @@ public class ProductLineAction extends Controller{
 			renderJSON(ResultUtil.getReturnResult(101, "新增产品线失败！"));
 		}
 	}
+	/**
+	 * 删除产品线
+	 * @param id
+	 */
+	public static void delProductLine(Long id){
+		DBCollection collection = GGMongoOperator.getGGBusinessDBCollection("gg_product_line");
+		
+		Document query = new Document();
+		query.append("_id", id);
+		
+		Document value = new Document();
+		value.append("status", 0);
+		value.append("operator", "admin");
+		value.append("update_time", new Date());
+		
+		Document doc = collection.findOneAndUpdate(query, new Document("$set", value));
+		if(doc != null) {
+			renderJSON(ResultUtil.getReturnResult(100, "删除产品线成功！"));
+		} else {
+			renderJSON(ResultUtil.getReturnResult(101, "删除产品线失败！"));
+		}
+	}
+	/**
+	 * 编辑产品线
+	 * @param id
+	 */
+	public static void editProductLineView(Long id){
+		DBCollection collection = GGMongoOperator.getGGBusinessDBCollection("gg_product_line");
+		
+		Document query = new Document();
+		query.append("_id", id);
+		
+		Document fields = new Document();
+		fields.append("product_name", 1);
+		fields.append("product_desc", 1);
+		fields.append("product_line", 1);
+		Document p = collection.findOne(query, fields);
+		
+		render(p);
+	}
+	/**
+	 * 更新产品线
+	 * @param product
+	 */
+	public static void updateProductLine(ProductLine product) {
+		DBCollection collection = GGMongoOperator.getGGBusinessDBCollection("gg_product_line");
+		
+		Document query = new Document();
+		query.append("_id", product.getId());
+		
+		Document update = new Document();
+		update.append("product_name", product.getProduct_name());
+		update.append("product_desc", product.getProduct_desc());
+		update.append("product_line", product.getProduct_line());
+		update.append("operator", "admin");
+		update.append("update_time", new Date());
+		
+		Document doc = collection.findOneAndUpdate(query, new Document("$set", update));
+		if(doc != null) {
+			renderJSON(ResultUtil.getReturnResult(100, "更新产品线成功！"));
+		} else {
+			renderJSON(ResultUtil.getReturnResult(101, "更新产品线失败！"));
+		}
+	}
 }

@@ -10,7 +10,8 @@
 	 		     </td>
 	             <td class="col-md-9">
 		             <div class="col-md-5">
-		             	<input type="text" class="form-control" name="product.product_line" id="product_line">
+		             	<input type="hidden" class="form-control" name="product.id" value="${p._id}" id="id">
+		             	<input type="text" class="form-control" name="product.product_line" value="${p.product_line}" id="product_line" disabled="disabled">
 		             </div>
 	             </td>
 	           </tr>
@@ -20,7 +21,7 @@
 	 		     </td>
 	             <td class="col-md-9">
 		             <div class="col-md-5">
-		             	<input type="text" class="form-control" name="product.product_name" id="product_name">
+		             	<input type="text" class="form-control" name="product.product_name" value="${p.product_name}"  id="product_name">
 		             </div>
 	             </td>
 	           </tr>
@@ -30,7 +31,7 @@
 	 		     </td>
 	             <td class="col-md-9">
 		             <div class="col-md-8">
-		             	<textarea cols="80" rows="5" name="product.product_desc" id="product_desc" class="longinput"></textarea>
+		             	<textarea cols="80" rows="5" name="product.product_desc"  id="product_desc" class="longinput">${p.product_desc}</textarea>
 		             </div>
 	             </td>
 	           </tr>
@@ -59,7 +60,7 @@ jQuery("#productline_save").click(function(){
 // 	}
 	var formData = new FormData(jQuery("#productline_form")[0]);
 	jQuery.ajax({
-		url : '/ProductLineAction/insertProductLine',
+		url : '/ProductLineAction/updateProductLine',
 		type : 'POST',
 		async : false,
 		cache: false,  

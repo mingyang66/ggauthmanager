@@ -15,7 +15,7 @@
 	           </tr>
          	</thead>
          	<tbody>
-	           	#{list items:list, as:'item'}
+	           #{list items:list, as:'item'}
 	 		   <tr>
 	 		     <td>${item_index}</td>
 	             <td>${item.product_line}</td>
@@ -25,8 +25,8 @@
 	             <td>${item.create_time}</td>
 	             <td>${item.update_time}</td>
 	             <td>
-	             <input class="btn btn-default btn-sm" type="button" value="编辑">
-	             <input class="btn btn-default btn-sm" type="button" value="删除">
+	             <a href="#" onclick="editProductLineView(${item._id})">编辑</a>
+	             <a href="#" onclick="del(${item._id})">删除</a>
 	             </td>
 	           </tr>
 	           #{/list}
@@ -88,4 +88,38 @@
 		var data = {page:page};
 		loadUrl('/ProductLineAction/list',data);
 	});
+	function del(id){
+		layer.confirm('确认删除？', {icon: 3, title:'信息提示'}, function(index){
+			debugger
+		  delProductLine(id);
+		  layer.close(index);
+		});
+	}
+	function delProductLine(id){
+		jQuery.ajax({
+			url:'/ProductLineAction/delProductLine',
+			async:false,
+			cache:false,
+			data:{id:id},
+			dataType:'json',
+			contentType:'application/json',
+			success:function(data){
+				if(data && data.code==100){
+					layer.alert(data.msg, function(index){
+						  loadUrl('/ProductLineAction/list');
+						  layer.close(index);
+						});       
+				} else {
+					layer.alert(data.msg);
+				}
+			},
+			error:function(e){
+				layer.alert('删除产品线失败！');
+			}
+			});
+	}
+	function editProductLineView(id){
+		var data = {id:id};
+		  loadUrl('/ProductLineAction/editProductLineView',data);
+	}
 </script>

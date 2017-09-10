@@ -17,9 +17,9 @@
 .topheader .left h1.logo { color: #ff4800; }
 .topheader .left .slogan { border-left: 1px solid #222; }
 .topheader .left .slogan { color: #666; }
-.search .submitbutton { background-image: url(../images/contrast/searchbutton.png); border-bottom: 0; }
+.search .submitbutton { background-image: url(../images/default/searchbutton.png); border-bottom: 0; }
 .notification a.count { border-bottom: 0; -moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none; }
-.userinfo { background-color: #333; background-image: url(../images/contrast/userinfoarrow.png); border-bottom: 0; 
+.userinfo { background-color: #333; background-image: url(../images/default/userinfoarrow.png); border-bottom: 0; 
 -moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none; }
 .userinfo:hover { background-color: #373737; }
 .userinfo span { color: #ccc; }
@@ -56,7 +56,7 @@
 .iconmenu ul li a { background-image: url(../images/default/icons_sprite.png); }
 .vernav2 ul li.current a:hover { background-image: url(../images/default/icons_sprite.png); }
 .menucoll2 > ul > li.current > a { background-image: url(../images/default/icons_sprite.png); }
-/* .menucoll2 > ul > li.current > a { background-image: url(../images/contrast/icons_sprite.png); } */
+/* .menucoll2 > ul > li.current > a { background-image: url(../images/default/icons_sprite.png); } */
 .menucoll2 ul li.current ul span { color: #ff4800; }
 div.tagsinput span.tag { background-color: #ff4800; border-color: #de4204; }
 form button { background-color: #ff4800; border-color: #de4204; }
@@ -68,7 +68,7 @@ form button { background-color: #ff4800; border-color: #de4204; }
 #popup_ok { background-color: #ff4800; border-color: #de4204; opacity: 0.8; }
 #popup_ok:hover { background-color: #ff4800; border-color: #de4204; opacity: 1; }
 .wizard .hormenu li a.selected span.h2, .wizard .hormenu li a.done span.h2 { color: #ff4800; }
-.wizard .hormenu li a span.dot span { background-image: url(../images/contrast/steps.png); }
+.wizard .hormenu li a span.dot span { background-image: url(../images/default/steps.png); }
 .actionBar a { background-color: #ff4800; border-color: #de4204; }
 .wizard .tabbedmenu li a.selected span.h2, .wizard .tabbedmenu li a.selected span,
 .wizard .tabbedmenu li a.done span.h2, .wizard .tabbedmenu li a.done span{ color: #ff4800; }
@@ -104,4 +104,4 @@ form input[type="submit"] { background-color: #ff4800; border-color: #de4204; }
 	-moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none; 
 }
 .search .searchinner { background: #222; }
-.search .searchcancel { background-image: url(../images/contrast/searchcancel.png); }
+.search .searchcancel { background-image: url(../images/default/searchcancel.png); }
