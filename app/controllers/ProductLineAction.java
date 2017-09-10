@@ -47,7 +47,7 @@ public class ProductLineAction extends Controller{
 		query.put("status", 1);
 		
 		Document sort = new Document();
-    	sort.put("_id", -1);
+    	sort.put("create_time", -1);
     	
     	DBCursor cursor = collection.find(query).sort(sort).limit(rows).skip((page-1)*rows);
     	List<Map<String, Object>> list = GGDBCursor.getListMap(cursor);
@@ -151,7 +151,6 @@ public class ProductLineAction extends Controller{
 		Document update = new Document();
 		update.append("product_name", product.getProduct_name());
 		update.append("product_desc", product.getProduct_desc());
-		update.append("product_line", product.getProduct_line());
 		update.append("operator", "admin");
 		update.append("update_time", new Date());
 		
