@@ -227,6 +227,9 @@ jQuery(document).ready(function(){
 			
 			jQuery(this).addClass('togglemenu_collapsed');
 			
+			jQuery('.iconmenu > ul > li').each(function(){
+				jQuery(this).removeClass('hover').find('ul').hide();
+			});
 			jQuery('.iconmenu > ul > li > a').each(function(){
 				var label = jQuery(this).text();
 				jQuery('<li><span>'+label+'</span></li>')
