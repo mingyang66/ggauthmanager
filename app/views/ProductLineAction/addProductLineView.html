@@ -54,9 +54,9 @@
 </style>
 <script type="text/javascript">
 jQuery("#productline_save").click(function(){
-// 	if(!validForm()){
-// 		return false;
-// 	}
+	if(!validForm()){
+		return false;
+	}
 	var formData = new FormData(jQuery("#productline_form")[0]);
 	jQuery.ajax({
 		url : '/ProductLineAction/insertProductLine',
@@ -80,11 +80,24 @@ jQuery("#productline_save").click(function(){
 	});
 });
 function validForm(){
-	debugger
-	var product_line = jQuery.trim(jQuery("product_line").val());
+	var product_line = jQuery.trim(jQuery("#product_line").val());
 	if(product_line == '') {
-		layer.tips('请选择上传图片', '#product_line');
+		layer.tips('产品线不能为空', '#product_line');
+		return false;
+	} else if(isNaN(product_line)){
+		layer.tips('产品线必须为数字', '#product_line');
 		return false;
 	}
+	var product_name = jQuery.trim(jQuery("#product_name").val());
+	if(product_name == '') {
+		layer.tips('产品线名称为空', '#product_name');
+		return false;
+	} 
+	var product_desc = jQuery.trim(jQuery("#product_desc").val());
+	if(product_desc == '') {
+		layer.tips('产品线描述为空', '#product_desc');
+		return false;
+	} 
+	return true;
 }
 </script>

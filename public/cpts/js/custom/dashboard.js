@@ -3,18 +3,18 @@ jQuery(document).ready(function(){
 //		jQuery('#overviewselect, input:checkbox').uniform();
 		
 		///// DATE PICKER /////
-		jQuery( "#datepickfrom, #datepickto" ).datepicker();
+//		jQuery( "#datepickfrom, #datepickto" ).datepicker();
 		
 		///// SLIM SCROLL /////
-		jQuery('#scroll1').slimscroll({
-			color: '#666',
-			size: '10px',
-			width: 'auto',
-			height: '175px'                  
-		});
+//		jQuery('#scroll1').slimscroll({
+//			color: '#666',
+//			size: '10px',
+//			width: 'auto',
+//			height: '175px'                  
+//		});
 		
 		///// ACCORDION /////
-		jQuery('#accordion').accordion({autoHeight:  false});
+//		jQuery('#accordion').accordion({autoHeight:  false});
 	
 		///// SIMPLE CHART /////
 		var flash = [[0, 2], [1, 6], [2,3], [3, 8], [4, 5], [5, 13], [6, 8]];

@@ -104,10 +104,7 @@
 			contentType:'application/json',
 			success:function(data){
 				if(data && data.code==100){
-					layer.alert(data.msg, function(index){
-						  loadUrl('/ProductLineAction/list');
-						  layer.close(index);
-						});       
+				    loadUrl('/ProductLineAction/list');
 				} else {
 					layer.alert(data.msg);
 				}
