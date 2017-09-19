@@ -88,7 +88,7 @@ public class UserAction extends Controller{
 	 * @date 2017年9月19日 上午10:25:08
 	 */
 	public static void editUserView(Long id){
-		User user = service.findUserById(id);
+		User user = service.findByUserId(id);
 		render(user);
 	}
 	/**
@@ -105,6 +105,12 @@ public class UserAction extends Controller{
 			renderJSON(ResultUtil.getReturnResult(101, "更新用户失败！"));
 		}
 	}
+	/**
+	 * 
+	 * @Description:删除用户信息
+	 * @author yaomy
+	 * @date 2017年9月19日 上午10:45:40
+	 */
 	public static void delUser(Long id){
 		boolean flag = service.findUserAndDel(id);
 		if(flag) {

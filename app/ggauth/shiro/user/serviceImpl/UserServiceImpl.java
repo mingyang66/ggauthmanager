@@ -1,13 +1,6 @@
 
 package ggauth.shiro.user.serviceImpl;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.bson.Document;
-
 import framework.yaomy.log.GGLogger;
 import framework.yaomy.mongo.pool.DBCollection;
 import framework.yaomy.mongo.pool.DBCursor;
@@ -17,6 +10,14 @@ import framework.yaomy.mongo.pool.WriteResult;
 import ggauth.shiro.user.common.PasswordHelper;
 import ggauth.shiro.user.model.User;
 import ggauth.shiro.user.service.UserService;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Pattern;
+
+import org.bson.Document;
 
 /**
  * @Description:TODO
@@ -73,11 +74,34 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		
 	}
-
+	/**
+	 * 
+	 * @Description:通过用户名查询用户信息
+	 * @author yaomy
+	 * @date 2017年9月19日 上午11:38:42
+	 */
 	@Override
 	public User findByUsername(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		Document query = new Document();
+		query.append("status", 1);
+		query.append("username", new Document("$regex", Pattern.compile("username", Pattern.CASE_INSENSITIVE)));
+		
+		Document fields = new Document();
+		fields.append("username", 1);
+		fields.append("password", 1);
+		fields.append("salt", 1);
+		fields.append("locked", 1);
+		
+		Document obj = collection.findOne(query, fields);
+		User user = new User();
+		if(obj != null){
+			user.setId(obj.getLong("_id"));
+			user.setLocked(obj.getBoolean("locked"));
+			user.setPassword(obj.getString("password"));
+			user.setUsername(obj.getString("username"));
+			user.setSalt(obj.getString("salt"));
+		}
+		return user;
 	}
 
 	@Override
@@ -117,7 +141,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public User findUserById(Long userId) {
+	public User findByUserId(Long userId) {
 		
 		Document query = new Document();
 		query.append("_id", userId);
