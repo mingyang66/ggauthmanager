@@ -20,6 +20,13 @@ public class User implements Serializable{
 	private String salt;//盐
 	private Boolean locked = Boolean.FALSE;//是否锁定
 	
+	public User(){
+		
+	}
+	public User(String username, String password){
+		this.username = username;
+		this.password = password;
+	}
 	public Long getId() {
 		return id;
 	}
