@@ -26,24 +26,10 @@ public class PasswordHelper {
 		String salt = randomNumberGenerator.nextBytes().toHex();
 		user.setSalt(salt);
 		
-		String newPassword = new Sha256Hash(user.getPassword(), salt, 1024).toHex();
+		String newPassword = new Sha256Hash(user.getPassword(), salt, 1024).toBase64();
 		user.setPassword(newPassword);
 	}
 	public String encryptPassword(String password, String salt) {
-		return new Sha256Hash(password, salt, 1024).toHex();
-	}
-	public static void main(String[] args) {
-		User user = new User();
-		user.setUsername("zhang");
-		user.setPassword("123");
-		
-		PasswordHelper passwordHelper = new PasswordHelper();
-		passwordHelper.encryptPassword(user);
-		System.out.println(user.getUsername());
-		System.out.println(user.getPassword());
-		System.out.println(user.getSalt());
-		
-		System.out.println(passwordHelper.encryptPassword("123", user.getSalt()));
-		
+		return new Sha256Hash(password, salt, 1024).toBase64();
 	}
 }
