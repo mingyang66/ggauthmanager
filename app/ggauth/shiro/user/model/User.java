@@ -58,9 +58,6 @@ public class User implements Serializable{
 	public void setLocked(Boolean locked) {
 		this.locked = locked;
 	}
-	public String getCredentialsSalt() {
-        return username + salt;
-    }
 	@Override
     public String toString() {
         return "User{" +

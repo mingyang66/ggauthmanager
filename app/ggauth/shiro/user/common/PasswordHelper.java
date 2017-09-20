@@ -5,6 +5,7 @@ import ggauth.shiro.user.model.User;
 
 import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 
@@ -21,15 +22,28 @@ public class PasswordHelper {
 	//用户生成随机数
 	private RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();
 	
-	private String algorithmName = "md5";//加密算法名
-	private int hashIterations = 2;//hash值的迭代次数
-	
 	public void encryptPassword(User user){
-		user.setSalt(randomNumberGenerator.nextBytes().toHex());
-		String newPassword = new SimpleHash(algorithmName,//加密算法名
-											user.getPassword(), //需要被加密的字符串
-											ByteSource.Util.bytes(user.getCredentialsSalt()),//盐salt=username+salt
-											hashIterations).toHex();
+		String salt = randomNumberGenerator.nextBytes().toHex();
+		user.setSalt(salt);
+		
+		String newPassword = new Sha256Hash(user.getPassword(), salt, 1024).toHex();
 		user.setPassword(newPassword);
+	}
+	public String encryptPassword(String password, String salt) {
+		return new Sha256Hash(password, salt, 1024).toHex();
+	}
+	public static void main(String[] args) {
+		User user = new User();
+		user.setUsername("zhang");
+		user.setPassword("123");
+		
+		PasswordHelper passwordHelper = new PasswordHelper();
+		passwordHelper.encryptPassword(user);
+		System.out.println(user.getUsername());
+		System.out.println(user.getPassword());
+		System.out.println(user.getSalt());
+		
+		System.out.println(passwordHelper.encryptPassword("123", user.getSalt()));
+		
 	}
 }

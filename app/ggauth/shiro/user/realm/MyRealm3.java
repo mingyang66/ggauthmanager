@@ -1,16 +1,23 @@
 
 package ggauth.shiro.user.realm;
 
+import framework.yaomy.log.GGLogger;
+import ggauth.shiro.user.common.PasswordHelper;
+import ggauth.shiro.user.model.User;
+import ggauth.shiro.user.service.UserService;
+import ggauth.shiro.user.serviceImpl.UserServiceImpl;
+
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.SaltedAuthenticationInfo;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.realm.Realm;
-
-import framework.yaomy.log.GGLogger;
+import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.SimplePrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 
 /**
  * @Description:TODO
@@ -23,6 +30,9 @@ import framework.yaomy.log.GGLogger;
  */
 public class MyRealm3 implements Realm{
 
+	private UserService service = new UserServiceImpl();
+	private PasswordHelper passwordHelper = new PasswordHelper();
+	
 	@Override
 	public String getName() {
 		return "c";
@@ -36,20 +46,36 @@ public class MyRealm3 implements Realm{
 	@Override
 	public AuthenticationInfo getAuthenticationInfo(AuthenticationToken token)
 			throws AuthenticationException {
-		String username = (String)token.getPrincipal();//用户名（认证）
+		final String username = (String)token.getPrincipal();//用户名（认证）
 		String password = new String((char[])token.getCredentials());//用户密码（凭证）
 		GGLogger.info("-----------------"+username + "--------------" + password+"------------------");
-		if(!"lisi".equals(username)) {  
+		User user = service.findByUsername(username);
+		final String salt = user.getSalt();
+		final String password_date = user.getPassword();
+		if(!user.getUsername().equals(username)) {  
             throw new UnknownAccountException("用户名不正确"); //如果用户名错误  
         }  
-        if(!"123".equals(password)) {  
+		if(!user.getPassword().equals(passwordHelper.encryptPassword(password, salt))) {  
             throw new IncorrectCredentialsException("密码不正确"); //如果密码错误  
         }  
-		return new SimpleAuthenticationInfo(
-                "lisi", //身份 User类型
-                "123",   //凭据
-                getName() //Realm Name
-        );
+        
+		return new SaltedAuthenticationInfo() {
+			
+			@Override
+			public PrincipalCollection getPrincipals() {
+				return new SimplePrincipalCollection(username, getName());
+			}
+			
+			@Override
+			public Object getCredentials() {
+				return password_date;
+			}
+			
+			@Override
+			public ByteSource getCredentialsSalt() {
+				return ByteSource.Util.bytes(salt);
+			}
+		};
 	}
 
 }

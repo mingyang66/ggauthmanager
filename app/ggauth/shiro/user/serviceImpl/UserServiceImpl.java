@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService{
 	public User findByUsername(String username) {
 		Document query = new Document();
 		query.append("status", 1);
-		query.append("username", new Document("$regex", Pattern.compile("username", Pattern.CASE_INSENSITIVE)));
+		query.append("username", new Document("$regex", Pattern.compile(username, Pattern.CASE_INSENSITIVE)));
 		
 		Document fields = new Document();
 		fields.append("username", 1);
