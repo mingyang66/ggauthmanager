@@ -1,33 +1,33 @@
 <div class="container">
 	<div class="row">
-	<form class="form-horizontal" action="/UserAction/insertUser" id="role_form">
+	<form class="form-horizontal" action="" id="permission_form">
 	   <div class="table-responsive">
          <table class="table table-striped table-bordered table-hover table-condensed">
          	<tbody>
 	 		   <tr>
 	 		     <td class="col-md-2">
-		 		     <font color="red">*</font>角色名：
+		 		     <font color="red">*</font>权限标识：
 	 		     </td>
 	             <td class="col-md-9">
 		             <div class="col-md-5">
-		             	<input type="hidden" class="form-control" name="role.id" value="${role.id}" id="id">
-		             	<input type="text" class="form-control" name="role.role" value="${role.role}" id="role">
+		             	<input type="hidden" class="form-control" name="permission.id" value="${permission.id}" id="id">
+		             	<input type="text" class="form-control" name="permission.permission" value="${permission.permission}" id="permission">
 		             </div>
 	             </td>
 	           </tr>
 	 		   <tr>
 	 		     <td class="col-md-2">
-		 		     <font color="red">*</font>角色描述：
+		 		     <font color="red">*</font>权限描述：
 	 		     </td>
 	             <td class="col-md-9">
 		             <div class="col-md-5">
-		             	<input type="text" class="form-control" name="role.description" value="${role.description}"  id="description">
+		             	<input type="text" class="form-control" name="permission.description" value="${permission.description}"  id="description">
 		             </div>
 	             </td>
 	           </tr>
 	 		   <tr>
 	             <td class="col-md-12" colspan="2" style="text-align: left;">
-		             <button type="button" class="btn btn-default" id="role_save">保存</button>
+		             <button type="button" class="btn btn-default" id="permission_save">保存</button>
 		             <button type="reset" class="btn btn-default">重置</button>
 	             </td>
 	           </tr>
@@ -44,13 +44,13 @@
 }
 </style>
 <script type="text/javascript">
-jQuery("#role_save").click(function(){
+jQuery("#permission_save").click(function(){
 	if(!validForm()){
 		return false;
 	}
-	var formData = new FormData(jQuery("#role_form")[0]);
+	var formData = new FormData(jQuery("#permission_form")[0]);
 	jQuery.ajax({
-		url : '/RoleAction/updateRole',
+		url : '/PermissionAction/updatePermission',
 		type : 'POST',
 		async : false,
 		cache: false,  
@@ -60,7 +60,7 @@ jQuery("#role_save").click(function(){
         data : formData,
 		success : function(data) {
 			if (data && data.code == 100) {
-				loadUrl('/RoleAction/list');
+				loadUrl('/PermissionAction/list');
 			} else {
 				layer.alert(data.msg, {icon: 1});
 			}
@@ -71,14 +71,14 @@ jQuery("#role_save").click(function(){
 	});
 });
 function validForm(){
-	var role = jQuery.trim(jQuery("#role").val());
-	if(role == '') {
-		layer.tips('角色标识不能为空', '#role');
+	var permission = jQuery.trim(jQuery("#permission").val());
+	if(permission == '') {
+		layer.tips('权限标识不能为空', '#permission');
 		return false;
 	}
 	var description = jQuery.trim(jQuery("#description").val());
 	if(description == '') {
-		layer.tips('角色描述不能为空', '#description');
+		layer.tips('权限描述不能为空', '#description');
 		return false;
 	} 
 	return true;

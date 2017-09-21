@@ -1,7 +1,11 @@
 
 package ggauth.shiro.user.service;
 
-import org.apache.shiro.authz.Permission;
+import ggauth.shiro.user.model.Permission;
+
+import java.util.List;
+import java.util.Map;
+
 
 
 /**
@@ -15,6 +19,11 @@ import org.apache.shiro.authz.Permission;
  */
 public interface PermissionService {
 
-	public Permission createPermission(Permission permisson);
+	public List<Map<String, Object>> findPermissions(Integer rows, Integer page);
+	public long findPermissionCount();
+	public boolean createPermission(Permission permission);
+	public boolean findPermissionAndDel(Long permissionId);
+	public boolean findPermissionAndUpdate(Permission permission);
+	public Permission findByPermissionId(Long permissionid);
 	public void deletePermission(Long permissionId);
 }

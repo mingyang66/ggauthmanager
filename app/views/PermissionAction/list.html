@@ -5,8 +5,8 @@
          	<thead>
 	           <tr>
 	           	 <th>序号</th>
-	             <th>角色标识</th>
-	             <th>角色描述</th>
+	             <th>权限标识</th>
+	             <th>权限描述</th>
 	             <th>是否可用</th>
 	             <th>创建人</th>
 	             <th>操作人</th>
@@ -19,7 +19,7 @@
 	           #{list items:list, as:'item'}
 	 		   <tr>
 	 		     <td>${item_index}</td>
-	             <td>${item.role}</td>
+	             <td>${item.permission}</td>
 	             <td>${item.description}</td>
 	             <td>${item.available}</td>
 	             <td>${item.creator}</td>
@@ -27,7 +27,7 @@
 	             <td>${item.create_time}</td>
 	             <td>${item.update_time}</td>
 	             <td>
-	             <a href="#" onclick="editRoleView(${item._id})">编辑</a>
+	             <a href="#" onclick="editPermissionView(${item._id})">编辑</a>
 	             <a href="#" onclick="del(${item._id})">删除</a>
 	             </td>
 	           </tr>
@@ -88,7 +88,7 @@
 			}
 		}
 		var data = {page:page};
-		loadUrl('/RoleAction/list',data);
+		loadUrl('/PermissionAction/list',data);
 	});
 	function del(id){
 		layer.confirm('确认删除？', {icon: 3, title:'信息提示'}, function(index){
@@ -98,7 +98,7 @@
 	}
 	function delProductLine(id){
 		jQuery.ajax({
-			url:'/RoleAction/delRole',
+			url:'/PermissionAction/delPermission',
 			async:false,
 			cache:false,
 			data:{id:id},
@@ -106,7 +106,7 @@
 			contentType:'application/json',
 			success:function(data){
 				if(data && data.code==100){
-				    loadUrl('/RoleAction/list');
+				    loadUrl('/PermissionAction/list');
 				} else {
 					layer.alert(data.msg);
 				}
@@ -116,8 +116,8 @@
 			}
 			});
 	}
-	function editRoleView(id){
+	function editPermissionView(id){
 		var data = {id:id};
-		  loadUrl('/RoleAction/editRoleView',data);
+		  loadUrl('/PermissionAction/editPermissionView',data);
 	}
 </script>

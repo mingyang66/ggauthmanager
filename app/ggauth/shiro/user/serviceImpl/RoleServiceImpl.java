@@ -34,7 +34,6 @@ public class RoleServiceImpl implements RoleService{
 	
 	@Override
 	public boolean createRole(Role role) {
-		GGLogger.info(role.toString());
 		Document doc = GGMongoOperator.newId(collection);
 		doc.append("role", role.getRole());
 		doc.append("description", role.getDescription());

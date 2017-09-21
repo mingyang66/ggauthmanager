@@ -2,9 +2,9 @@
 package controllers;
 
 import framework.yaomy.util.ResultUtil;
-import ggauth.shiro.user.model.Role;
-import ggauth.shiro.user.service.RoleService;
-import ggauth.shiro.user.serviceImpl.RoleServiceImpl;
+import ggauth.shiro.user.model.Permission;
+import ggauth.shiro.user.service.PermissionService;
+import ggauth.shiro.user.serviceImpl.PermissionServiceImpl;
 
 import java.util.List;
 import java.util.Map;
@@ -23,7 +23,7 @@ import utils.PageUtil;
  */
 public class PermissionAction extends Controller{
 	
-	private static RoleService service = new RoleServiceImpl();
+	private static PermissionService service = new PermissionServiceImpl();
 	/**
 	 * 
 	 * @Description:获取角色列表
@@ -37,9 +37,9 @@ public class PermissionAction extends Controller{
 		if (page == null || page < 1) {
 			page = 1;
 		}
-    	List<Map<String, Object>> list = service.findRoles(rows, page);
+    	List<Map<String, Object>> list = service.findPermissions(rows, page);
     	//数据总条数
-		int count = Long.valueOf(service.findRoleCount()).intValue();
+		int count = Long.valueOf(service.findPermissionCount()).intValue();
 		//总页数
 		int maxPage = count == 0 ? 1 : (count - 1) / rows + 1; 
 		if (page > maxPage) {
@@ -55,7 +55,7 @@ public class PermissionAction extends Controller{
 	 * @author yaomy
 	 * @date 2017年9月19日 上午10:25:36
 	 */
-	public static void addRoleView(){
+	public static void addPermissionView(){
 		render();
 	}
 	/**
@@ -64,8 +64,8 @@ public class PermissionAction extends Controller{
 	 * @author yaomy
 	 * @date 2017年9月19日 上午10:25:22
 	 */
-	public static void insertRole(Role role){
-		boolean flag = service.createRole(role);
+	public static void insertPermission(Permission permission){
+		boolean flag = service.createPermission(permission);
 		if(flag) {
 			 renderJSON(ResultUtil.getReturnResult(100, "新增角色成功！"));
 		} else {
@@ -78,9 +78,9 @@ public class PermissionAction extends Controller{
 	 * @author yaomy
 	 * @date 2017年9月19日 上午10:25:08
 	 */
-	public static void editRoleView(Long id){
-		Role role = service.findByRoleId(id);
-		render(role);
+	public static void editPermissionView(Long id){
+		Permission permission = service.findByPermissionId(id);
+		render(permission);
 	}
 	/**
 	 * 
@@ -88,8 +88,8 @@ public class PermissionAction extends Controller{
 	 * @author yaomy
 	 * @date 2017年9月19日 上午10:33:06
 	 */
-	public static void updateRole(Role role) {
-		boolean flag = service.findRoleAndUpdate(role);
+	public static void updatePermission(Permission permission) {
+		boolean flag = service.findPermissionAndUpdate(permission);
 		if(flag) {
 			renderJSON(ResultUtil.getReturnResult(100, "更新角色成功！"));
 		} else {
@@ -102,8 +102,8 @@ public class PermissionAction extends Controller{
 	 * @author yaomy
 	 * @date 2017年9月19日 上午10:45:40
 	 */
-	public static void delRole(Long id){
-		boolean flag = service.findRoleAndDel(id);
+	public static void delPermission(Long id){
+		boolean flag = service.findPermissionAndDel(id);
 		if(flag) {
 			renderJSON(ResultUtil.getReturnResult(100, "删除角色成功！"));
 		} else {
