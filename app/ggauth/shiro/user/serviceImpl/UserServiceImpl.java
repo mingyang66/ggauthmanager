@@ -37,7 +37,6 @@ public class UserServiceImpl implements UserService{
 	public boolean createUser(User user) {
 		passwordHelper.encryptPassword(user);
 		GGLogger.info(user.toString());
-		DBCollection collection = GGMongoOperator.getGGBusinessDBCollection("gg_user");
 		
 		Document doc = GGMongoOperator.newId(collection);
 		doc.append("username", user.getUsername());

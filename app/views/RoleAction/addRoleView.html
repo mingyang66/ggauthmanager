@@ -1,0 +1,85 @@
+<div class="container">
+	<div class="row">
+	<form class="form-horizontal" action="/ProductLineAction/insertProductLine" id="role_form">
+	   <div class="table-responsive">
+         <table class="table table-striped table-bordered table-hover table-condensed">
+         	<tbody>
+	 		   <tr>
+	 		     <td class="col-md-2">
+		 		     <font color="red">*</font>角色标识：
+	 		     </td>
+	             <td class="col-md-9">
+		             <div class="col-md-5">
+		             	<input type="text" class="form-control" name="role.role" id="role">
+		             </div>
+	             </td>
+	           </tr>
+	 		   <tr>
+	 		     <td class="col-md-2">
+		 		     <font color="red">*</font>角色描述：
+	 		     </td>
+	             <td class="col-md-9">
+		             <div class="col-md-5">
+		             	<input type="text" class="form-control" name="role.description" id="description">
+		             </div>
+	             </td>
+	           </tr>
+	 		   <tr>
+	             <td class="col-md-12" colspan="2" style="text-align: left;">
+		             <button type="button" class="btn btn-default" id="role_save">保存</button>
+		             <button type="reset" class="btn btn-default">重置</button>
+	             </td>
+	           </tr>
+	        </tbody>
+	      </table>
+	    </div>
+	    </form>
+	</div>
+</div>
+<style>
+.table tr td:first-child{
+    vertical-align: middle;
+    font-weight: 600;
+}
+</style>
+<script type="text/javascript">
+jQuery("#role_save").click(function(){
+	if(!validForm()){
+		return false;
+	}
+	var formData = new FormData(jQuery("#role_form")[0]);
+	jQuery.ajax({
+		url : '/RoleAction/insertRole',
+		type : 'POST',
+		async : false,
+		cache: false,  
+        processData: false,  
+        contentType: false,
+		datatype : 'json',
+        data : formData,
+		success : function(data) {
+			if (data && data.code == 100) {
+				loadUrl('/RoleAction/list');
+			} else {
+				layer.alert(data.msg, {icon: 1});
+			}
+		},
+		error : function() {
+			layer.alert('保存失败', {icon: 1});
+		}
+	});
+});
+function validForm(){
+	var role = jQuery.trim(jQuery("#role").val());
+	if(role == '') {
+		layer.tips('角色标识不能为空', '#role');
+		return false;
+	}
+	var description = jQuery.trim(jQuery("#description").val());
+	if(description == '') {
+		layer.tips('角色描述不能为空', '#description');
+		return false;
+	} 
+	return true;
+}
+</script>
