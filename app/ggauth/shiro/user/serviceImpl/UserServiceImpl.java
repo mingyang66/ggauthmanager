@@ -93,15 +93,16 @@ public class UserServiceImpl implements UserService{
 		fields.append("locked", 1);
 		
 		Document obj = collection.findOne(query, fields);
-		User user = new User();
 		if(obj != null){
+			User user = new User();
 			user.setId(obj.getLong("_id"));
 			user.setLocked(obj.getBoolean("locked"));
 			user.setPassword(obj.getString("password"));
 			user.setUsername(obj.getString("username"));
 			user.setSalt(obj.getString("salt"));
+			return user;
 		}
-		return user;
+		return null;
 	}
 
 	@Override
@@ -164,12 +165,14 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public boolean findUserAndUpdate(User user) {
+		passwordHelper.encryptPassword(user);
 		Document query = new Document();
 		query.append("_id", user.getId());
 		
 		Document update = new Document();
 		update.append("username", user.getUsername());
 		update.append("password", user.getPassword());
+		update.append("salt", user.getSalt());
 		update.append("operator", "admin");
 		update.append("update_time", new Date());
 		

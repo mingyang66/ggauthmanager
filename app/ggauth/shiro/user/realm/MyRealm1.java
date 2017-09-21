@@ -46,7 +46,7 @@ public class MyRealm1 implements Realm{
 
 	@Override
 	public AuthenticationInfo getAuthenticationInfo(AuthenticationToken token)
-			throws AuthenticationException {
+			throws AuthenticationException, UnknownAccountException {
 		final String username = (String)token.getPrincipal();//用户名（认证）
 		String password = new String((char[])token.getCredentials());//用户密码（凭证）
 		GGLogger.info("-----------------"+username + "--------------" + password+"------------------");

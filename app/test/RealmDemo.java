@@ -1,6 +1,9 @@
 
 package test;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
@@ -10,6 +13,7 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.config.IniSecurityManagerFactory;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.Factory;
@@ -20,8 +24,6 @@ import framework.yaomy.config.GGConfigurer;
 import framework.yaomy.log.GGLogger;
 import framework.yaomy.mongo.pool.GGMongoClientPool;
 import framework.yaomy.mongo.pool.GGMongoClients;
-import ggauth.shiro.user.common.PasswordHelper;
-import ggauth.shiro.user.model.User;
 
 /**
  * http://jinnianshilongnian.iteye.com/blog/2019547
@@ -40,43 +42,45 @@ public class RealmDemo {
 		 GGMongoClientPool.pool.initPool(GGMongoClients.getClients());
 		 GGLogger.info("数据库初始化成功...");
 		//获取SecurityManager安全管理器工厂类，此处使用shiro.ini文件进行初始化
-		Factory<SecurityManager> factory = new IniSecurityManagerFactory("conf/shiro.ini");
+		Factory<SecurityManager> factory = new IniSecurityManagerFactory("conf/shiro-permission.ini");
 		//获取SecurityManager安全管理器实例,并绑定给SecurityUtils
 		SecurityManager securityManager = factory.getInstance();
 		SecurityUtils.setSecurityManager(securityManager);
 		
+		//创建用户名密码身份验证token(即：用户身份/凭证)
+		UsernamePasswordToken token = new UsernamePasswordToken("zhang", "123", true);
 		//获取主题
 		Subject subject = SecurityUtils.getSubject();
-		User user = new User();
-		user.setUsername("zhang");
-		user.setPassword("123");
 		
-		//创建用户名密码身份验证token(即：用户身份/凭证)
-		UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword(), true);
 		try{
 			//登录，即身份验证
 			subject.login(token);
 			GGLogger.info("是否登录成功---"+subject.isAuthenticated());
 			GGLogger.info("是否记住我----"+subject.isRemembered());
 			
+			Session session = subject.getSession();
+			if(subject.isPermitted("system+edit1+10")){
+				System.out.println("----------------------拥有打印权限----------------");
+			} else {
+				System.out.println("----------------------无打印权限---------------------");
+				
+			}
 			if(subject.hasRole("admin")){
 				System.out.println("拥有权限");
 			}else {
 				GGLogger.info("无权限");
 			}
-			PrincipalCollection principal = subject.getPrincipals();
-			GGLogger.info("------------------用户信息---------------------");
-			for(Object s:principal.asList()){
-				GGLogger.info(s);
-			}
-			GGLogger.info("------------------用户信息---------------------");
 		} catch(UnknownAccountException e){
 			log.info("身份验证失败"+e);
 		} catch (IncorrectCredentialsException  e) {
+			log.info("身份验证失败"+e);
 		} catch (LockedAccountException e) {
+			log.info("身份验证失败"+e);
 		} catch (ExcessiveAttemptsException e) {
+			log.info("身份验证失败"+e);
 			// TODO: handle exception
 		} catch (AuthenticationException e) {
+			log.info("身份验证失败"+e);
 			// TODO: handle exception
 		}
 		

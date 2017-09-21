@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import framework.yaomy.log.GGLogger;
+import ggauth.shiro.user.common.PasswordHelper;
 import ggauth.shiro.user.model.User;
 import ggauth.shiro.user.service.UserService;
 import ggauth.shiro.user.serviceImpl.UserServiceImpl;
@@ -12,13 +13,17 @@ import ggauth.shiro.user.serviceImpl.UserServiceImpl;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.SaltedAuthenticationInfo;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.authz.permission.RolePermissionResolverAware;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 
 /**
@@ -32,6 +37,7 @@ import org.apache.shiro.util.ByteSource;
  */
 public class UserRealm extends AuthorizingRealm{
 	private UserService service = new UserServiceImpl();  
+	private PasswordHelper passwordHelper = new PasswordHelper();
 	/**
 	 * 
 	 * @Description:获取授权信息
@@ -47,12 +53,11 @@ public class UserRealm extends AuthorizingRealm{
 		GGLogger.info("---------------username-----------------");
 		
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-		Set<String> roles = new HashSet<String>();
-		roles.add("role");
-		Set<String> permission = new HashSet<String>();
-		permission.add("update");
-		authorizationInfo.setRoles(roles);
-		authorizationInfo.setStringPermissions(permission);
+		authorizationInfo.addRole("admin");
+		/**
+		 * 只有当SimpleAuthorizationInfo中设置了权限后，自定义的Permission中implies方法才会被调用。
+		 */
+		authorizationInfo.addStringPermission("system+edit+10");
 		return authorizationInfo;
 	}
 
@@ -66,27 +71,37 @@ public class UserRealm extends AuthorizingRealm{
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(
 			AuthenticationToken token) throws AuthenticationException {
-		String username = (String)token.getPrincipal();
-		
+		final String username = (String)token.getPrincipal();//用户名（认证）
+		final String password = new String((char[])token.getCredentials());//用户密码（凭证）
+		GGLogger.info("-----------------"+username + "--------------" + password+"------------------");
 		User user = service.findByUsername(username);
-		if(user == null){
-			throw new UnknownAccountException();//没找到账号
-		}
-		if(Boolean.TRUE.equals(user.getLocked())){
-			throw new LockedAccountException();//账号锁定
-		}
-		/**
-		 * 生成AuthenticationInfo信息，交给间接父类AuthenticatingRealm使用CredentialsMatcher进行判断密码是否匹配，
-		 * 如果不匹配将抛出密码错误异常IncorrectCredentialsException；
-		 * 另外如果密码重试此处太多将抛出超出重试次数异常ExcessiveAttemptsException；
-		 */
-		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-												user.getUsername(), //身份信息（用户名）
-												user.getPassword(), //凭据（密文密码）
-												ByteSource.Util.bytes(user.getSalt()), //盐（username+salt）
-												this.getName()
-												);
-		return authenticationInfo;
+		final String salt = user.getSalt();
+		final String password_date = user.getPassword();
+		
+		if(!user.getUsername().equals(username)) {  
+            throw new UnknownAccountException("用户名不正确"); //如果用户名错误  
+        }  
+        if(!password_date.equals(passwordHelper.encryptPassword(password, salt))) {  
+            throw new IncorrectCredentialsException("密码不正确"); //如果密码错误  
+        }  
+		
+		return new SaltedAuthenticationInfo() {
+			
+			@Override
+			public PrincipalCollection getPrincipals() {
+				return new SimplePrincipalCollection(username, getName());
+			}
+			
+			@Override
+			public Object getCredentials() {
+				return password;
+			}
+			
+			@Override
+			public ByteSource getCredentialsSalt() {
+				return ByteSource.Util.bytes(salt);
+			}
+		};
 	}
 
 }

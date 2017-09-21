@@ -21,17 +21,7 @@
 	 		     </td>
 	             <td class="col-md-9">
 		             <div class="col-md-5">
-		             	<input type="text" class="form-control" name="user.password" value="${user.password}"  id="password">
-		             </div>
-	             </td>
-	           </tr>
-	 		   <tr>
-	 		     <td class="col-md-2">
-		 		     <font color="red">*</font>密码混合字符串：
-	 		     </td>
-	             <td class="col-md-9">
-		             <div class="col-md-5">
-		             	<input type="text" class="form-control" name="user.salt" id="salt" value="${user.salt}">
+		             	<input type="text" class="form-control" name="user.password"  id="password">
 		             </div>
 	             </td>
 	           </tr>
@@ -89,11 +79,6 @@ function validForm(){
 	var password = jQuery.trim(jQuery("#password").val());
 	if(password == '') {
 		layer.tips('密码不能为空', '#password');
-		return false;
-	} 
-	var salt = jQuery.trim(jQuery("#salt").val());
-	if(salt == '') {
-		layer.tips('密码混合字符串', '#salt');
 		return false;
 	} 
 	return true;
