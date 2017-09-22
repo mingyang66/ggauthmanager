@@ -48,7 +48,7 @@
                 </div><!--loginf-->
             </div><!--nopassword-->
             
-            <form id="login" action="@{MainAction.dashboard()}" method="post">
+            <form id="login_form" action="@{MainAction.dashboard()}" method="post">
             	
                 <div class="username">
                 	<div class="usernameinner">
@@ -62,7 +62,7 @@
                     </div>
                 </div>
                 
-                <button>登录</button>
+                <button id="login">登录</button>
                 
                 <div class="keep"><input type="checkbox" /> 记住密码</div>
             
@@ -70,7 +70,48 @@
             
         </div><!--loginboxinner-->
     </div><!--loginbox-->
-
+	<script type="text/javascript">
+	jQuery("#login").click(function(){
+		if(!validForm){
+			return false;
+		}
+		var formData = new FormData(jQuery("#login_form")[0]);
+		jQuery.ajax({
+			url : '/LoginAction/login',
+			type : 'POST',
+			async : false,
+			cache: false,  
+	        processData: false,  
+	        contentType: false,
+			datatype : 'json',
+	        data : formData,
+			success : function(data) {
+				if (data && data.code == 100) {
+					loadUrl('@{MainAction.dashboard()}');
+				} else {
+					layer.alert(data.msg, {icon: 1});
+				}
+			},
+			error : function() {
+				layer.alert('保存失败', {icon: 1});
+			}
+		});
+		
+	});
+	function validForm(){
+		var username = jQuery.trim(jQuery("#username").val());
+		if(username == '') {
+			layer.tips('用户名不能为空', '#username');
+			return false;
+		} 
+		var password = jQuery.trim(jQuery("#password").val());
+		if(password == '') {
+			layer.tips('密码不能为空', '#password');
+			return false;
+		} 
+		return true;
+	}
+	</script>
 
 </body>
 </html>

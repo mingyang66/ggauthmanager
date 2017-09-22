@@ -36,4 +36,16 @@ public class SecurityManagerPool {
 			subject = SecurityUtils.getSubject();
 		}
 	}
+	/**
+	 * 
+	 * @Description:获取主题对象
+	 * @author yaomy
+	 * @date 2017年9月22日 上午9:12:55
+	 */
+	public static Subject getSubject(){
+		if(subject == null) {
+			initSecurityManager();
+		}
+		return subject;
+	}
 }

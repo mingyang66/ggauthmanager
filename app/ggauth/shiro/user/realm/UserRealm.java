@@ -75,15 +75,14 @@ public class UserRealm extends AuthorizingRealm{
 		final String password = new String((char[])token.getCredentials());//用户密码（凭证）
 		GGLogger.info("-----------------"+username + "--------------" + password+"------------------");
 		User user = service.findByUsername(username);
+		if(user == null) {
+			throw new UnknownAccountException("账号不存在");
+		}
 		final String salt = user.getSalt();
 		final String password_date = user.getPassword();
-		
-		if(!user.getUsername().equals(username)) {  
-            throw new UnknownAccountException("用户名不正确"); //如果用户名错误  
-        }  
-        if(!password_date.equals(passwordHelper.encryptPassword(password, salt))) {  
-            throw new IncorrectCredentialsException("密码不正确"); //如果密码错误  
-        }  
+		if(!password_date.equals(passwordHelper.encryptPassword(password, salt))) {  
+			throw new IncorrectCredentialsException("密码不正确"); //如果密码错误  
+		}  
 		
 		return new SaltedAuthenticationInfo() {
 			

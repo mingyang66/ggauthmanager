@@ -24,7 +24,7 @@ public class DBCursor {
 	private Bson filter;
 	private FindIterable<Document> it;
 	private MongoCursor<Document> mc;
-	DBCursor(MongoCollection<Document> collection, Bson filter, FindIterable<Document> it) {
+	public DBCursor(MongoCollection<Document> collection, Bson filter, FindIterable<Document> it) {
 		this.collection = collection;
 		this.filter = filter;
 		this.it = it;

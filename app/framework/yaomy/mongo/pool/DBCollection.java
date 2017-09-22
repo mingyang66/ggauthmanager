@@ -46,7 +46,7 @@ public class DBCollection{
 	 private MongoCollection<Document> collection = null;
 	 private String collectionName = null;
 	 
-	 DBCollection(MongoDatabase db, MongoCollection<Document> collection, String collectionName) {
+	 public DBCollection(MongoDatabase db, MongoCollection<Document> collection, String collectionName) {
 		 this.db = db;
 		 this.collection = collection;
 		 this.collectionName = collectionName;
@@ -179,7 +179,9 @@ public class DBCollection{
 	 */
 	public Document findOne(Document query) {
 		DBCursor cursor = find(query);
-		return cursor.tryNext();
+		Document doc = cursor.tryNext();
+		cursor.close();
+		return doc;
 	}
 	/**
 	 * 查找指定的一个文档
@@ -189,7 +191,9 @@ public class DBCollection{
 	 */
 	public Document findOne(Document query, Document keys){
 		DBCursor cursor = find(query, keys);
-		return cursor.tryNext();
+		Document doc = cursor.tryNext();
+		cursor.close();
+		return doc;
 	}
 	/**
 	 * 
