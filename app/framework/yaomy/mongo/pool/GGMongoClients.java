@@ -97,6 +97,8 @@ public class GGMongoClients {
 	     }
 	 
 	     MongoClientOptions.Builder builder = MongoClientOptions.builder();
+	     //表示当没有手动关闭游标时,是否有一个自动释放游标对象的方法,如果你总是很小心的关闭游标,则可以将其设为false 推荐配置true
+	     builder.cursorFinalizerEnabled(false);
 	     if (GGConfigurer.containsKey("ggmongodb.connectionsPerHost")) {
 	       builder.connectionsPerHost(Integer.parseInt(GGConfigurer.get("ggmongodb.connectionsPerHost")));
 	     }

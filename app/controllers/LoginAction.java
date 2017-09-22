@@ -29,11 +29,11 @@ public class LoginAction extends Controller{
 	public static void login(){
 		String username = request.params.get("username", String.class);
 		String password = request.params.get("password", String.class);
-		//获取主题对象
-		Subject subject = SecurityManagerPool.getSubject();
 		//创建用户名密码身份验证token(即：用户身份/凭证)
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password, true);
 		
+		//获取主题对象
+		Subject subject = SecurityManagerPool.getSubject();
 		try{
 			//登录，即身份验证
 			subject.login(token);

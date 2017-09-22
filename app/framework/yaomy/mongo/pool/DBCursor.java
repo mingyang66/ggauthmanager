@@ -91,6 +91,7 @@ public class DBCursor {
 		}
 		this.collection = null;
 		this.it = null;
+		this.filter = null;
 	}
 	/**
 	 * 

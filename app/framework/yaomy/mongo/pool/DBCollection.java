@@ -179,7 +179,10 @@ public class DBCollection{
 	 */
 	public Document findOne(Document query) {
 		DBCursor cursor = find(query);
-		Document doc = cursor.tryNext();
+		Document doc = null;
+		if(cursor.hasNext()){
+			doc = cursor.tryNext();
+		}
 		cursor.close();
 		return doc;
 	}
@@ -191,7 +194,10 @@ public class DBCollection{
 	 */
 	public Document findOne(Document query, Document keys){
 		DBCursor cursor = find(query, keys);
-		Document doc = cursor.tryNext();
+		Document doc = null;
+		if(cursor.hasNext()){
+			doc = cursor.next();
+		}
 		cursor.close();
 		return doc;
 	}
