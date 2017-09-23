@@ -102,7 +102,9 @@ public class GGMongoClients {
 	     //设置汇集连接的最大空闲时间
 	     builder.maxConnectionIdleTime(10000);
 	     //池连接的最大生命时间。零值表示寿命没有限制。已超过其生命周期的池连接将被关闭，并在必要时由新连接替换。
-	     builder.maxConnectionLifeTime(2000000);
+	     builder.maxConnectionLifeTime(0);
+	     //超时是放弃请求响应之前的时间，0表示永远不放弃
+	     builder.connectTimeout(30000);
 	     if (GGConfigurer.containsKey("ggmongodb.connectionsPerHost")) {
 	       builder.connectionsPerHost(Integer.parseInt(GGConfigurer.get("ggmongodb.connectionsPerHost")));
 	     }

@@ -61,9 +61,6 @@ public class DBCursor {
 	 * @date 2017年8月20日 下午6:55:01
 	 */
 	public Document next(){
-		if(this.mc == null){
-			this.mc = this.it.iterator();
-		}
 		return this.mc.next();
 	}
 	/**
@@ -73,9 +70,6 @@ public class DBCursor {
 	 * @date 2017年8月20日 下午6:49:54
 	 */
 	public Document tryNext(){
-		if(this.mc == null) {
-			this.mc = this.it.iterator();
-		}
 		return this.mc.tryNext();
 	}
 	/**
@@ -89,8 +83,8 @@ public class DBCursor {
 			this.mc.close();
 			this.mc = null;
 		}
-		this.it = null;
 		this.filter = null;
+		this.collection = null;
 	}
 	/**
 	 * 

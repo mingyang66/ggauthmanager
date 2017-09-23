@@ -44,16 +44,17 @@ public class DBCollection{
 
 	 private MongoDatabase db;
 	 private MongoCollection<Document> collection = null;
-	 private String collectionName = null;
+//	 private String collectionName = null;
+	 private boolean shard = Boolean.FALSE;
 	 
-	 public DBCollection(MongoDatabase db, MongoCollection<Document> collection, String collectionName) {
+	 public DBCollection(MongoDatabase db, MongoCollection<Document> collection, boolean shard) {
 		 this.db = db;
 		 this.collection = collection;
-		 this.collectionName = collectionName;
+		 this.shard = shard;
 	 }
 
 	public MongoDatabase getDb() {
-		return db;
+		return this.db;
 	}
 
 	public void setDb(MongoDatabase db) {
@@ -69,11 +70,10 @@ public class DBCollection{
 	}
 
 	public String getCollectionName() {
-		return collectionName;
+		return this.collection.getNamespace().getCollectionName();
 	}
-
-	public void setCollectionName(String collectionName) {
-		this.collectionName = collectionName;
+	public boolean isShard() {
+		return shard;
 	}
 
 	/**
@@ -181,7 +181,7 @@ public class DBCollection{
 		DBCursor cursor = find(query);
 		Document doc = null;
 		if(cursor.hasNext()){
-			doc = cursor.tryNext();
+			doc = cursor.next();
 		}
 		cursor.close();
 		return doc;
