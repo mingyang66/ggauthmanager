@@ -16,16 +16,18 @@ import org.apache.shiro.util.Factory;
  * @copyright (c) 2017 yaomy Co'Ltd Inc. All rights reserved.
  * @date 2017年9月21日 下午8:14:40
  */
-public class SecurityManagerPool {
+public enum SecurityManagerPool {
 
-	private static Subject subject = null;
+	pool;
+	
+	private Subject subject = null;
 	/**
 	 * 
 	 * @Description:初始化
 	 * @author yaomy
 	 * @date 2017年9月21日 下午8:19:51
 	 */
-	public static void initSecurityManager(){
+	public void initSecurityManager(){
 		if(subject == null){
 			//获取SecurityManager安全管理器工厂类，此处使用shiro.ini文件进行初始化
 			Factory<SecurityManager> factory = new IniSecurityManagerFactory("conf/shiro-permission.ini");
@@ -42,7 +44,7 @@ public class SecurityManagerPool {
 	 * @author yaomy
 	 * @date 2017年9月22日 上午9:12:55
 	 */
-	public static Subject getSubject(){
+	public Subject getSubject(){
 		if(subject == null) {
 			initSecurityManager();
 		}

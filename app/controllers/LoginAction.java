@@ -40,7 +40,7 @@ public class LoginAction extends Controller{
 		//创建用户名密码身份验证token(即：用户身份/凭证)
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password, true);
 		//获取主题对象
-		Subject subject = SecurityManagerPool.getSubject();
+		Subject subject = SecurityManagerPool.pool.getSubject();
 		try{
 			//验证是否登录成功，如果未登录成功登录验证
 			if(!subject.isAuthenticated()){
@@ -89,7 +89,7 @@ public class LoginAction extends Controller{
 	 */
 	public static void logout(){
 		GGLogger.info("退出登录！");
-		Subject subject = SecurityManagerPool.getSubject();
+		Subject subject = SecurityManagerPool.pool.getSubject();
 		subject.logout();
 		redirect("/MainAction/index");
 	}

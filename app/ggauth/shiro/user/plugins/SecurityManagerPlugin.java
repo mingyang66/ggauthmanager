@@ -21,7 +21,7 @@ public class SecurityManagerPlugin extends PlayPlugin{
 
 	 public void onApplicationStart() {	
 		 GGLogger.info("SecurityManager初始化成功...");
-		 SecurityManagerPool.initSecurityManager();
+		 SecurityManagerPool.pool.initSecurityManager();
 	 }
 	 public void onApplicationStop() {
 	 }
