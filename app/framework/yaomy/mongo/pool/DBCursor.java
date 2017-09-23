@@ -89,7 +89,6 @@ public class DBCursor {
 			this.mc.close();
 			this.mc = null;
 		}
-		this.collection = null;
 		this.it = null;
 		this.filter = null;
 	}
