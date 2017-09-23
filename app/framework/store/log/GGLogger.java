@@ -1,4 +1,4 @@
-package framework.yaomy.log;
+package framework.store.log;
 
 
 import play.Logger;

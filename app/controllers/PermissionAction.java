@@ -1,14 +1,13 @@
 
 package controllers;
 
-import framework.yaomy.util.ResultUtil;
-import ggauth.shiro.user.model.Permission;
-import ggauth.shiro.user.service.PermissionService;
-import ggauth.shiro.user.serviceImpl.PermissionServiceImpl;
-
 import java.util.List;
 import java.util.Map;
 
+import framework.store.util.ResultUtil;
+import ggauth.shiro.user.model.Permission;
+import ggauth.shiro.user.service.PermissionService;
+import ggauth.shiro.user.serviceImpl.PermissionServiceImpl;
 import play.mvc.Controller;
 import utils.PageUtil;
 

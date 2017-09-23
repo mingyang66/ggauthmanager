@@ -1,5 +1,5 @@
 
-package framework.yaomy.mongo.pool;
+package framework.store.mongo.pool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ import com.mongodb.client.model.InsertOneOptions;
 import com.mongodb.client.model.WriteModel;
 import com.mongodb.client.result.DeleteResult;
 
-import framework.yaomy.log.GGLogger;
+import framework.store.log.GGLogger;
 import net.sf.json.JSONObject;
 
 /**

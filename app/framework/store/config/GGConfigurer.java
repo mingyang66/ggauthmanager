@@ -1,4 +1,4 @@
-package framework.yaomy.config;
+package framework.store.config;
 
 import java.io.File;
 import java.io.FileInputStream;

@@ -8,15 +8,12 @@ import java.util.Set;
 
 import org.bson.Document;
 
-import framework.yaomy.log.GGLogger;
-import framework.yaomy.mongo.pool.DBCollection;
-import framework.yaomy.mongo.pool.DBCursor;
-import framework.yaomy.mongo.pool.GGDBCursor;
-import framework.yaomy.mongo.pool.GGMongoOperator;
-import framework.yaomy.mongo.pool.WriteResult;
-import ggauth.shiro.user.common.PasswordHelper;
+import framework.store.mongo.pool.DBCollection;
+import framework.store.mongo.pool.DBCursor;
+import framework.store.mongo.pool.GGDBCursor;
+import framework.store.mongo.pool.GGMongoOperator;
+import framework.store.mongo.pool.WriteResult;
 import ggauth.shiro.user.model.Role;
-import ggauth.shiro.user.model.User;
 import ggauth.shiro.user.service.RoleService;
 
 /**

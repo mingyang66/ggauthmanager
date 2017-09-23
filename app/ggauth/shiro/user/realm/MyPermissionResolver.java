@@ -1,8 +1,6 @@
 
 package ggauth.shiro.user.realm;
 
-import ggauth.shiro.user.permission.UserPermission;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;

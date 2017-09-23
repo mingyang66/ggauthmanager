@@ -1,4 +1,4 @@
-package framework.yaomy.mongo.pool;
+package framework.store.mongo.pool;
 
 import org.bson.Document;
 
@@ -9,8 +9,8 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 
-import framework.yaomy.config.GGConfigurer;
-import framework.yaomy.log.GGLogger;
+import framework.store.config.GGConfigurer;
+import framework.store.log.GGLogger;
 /**
  * 
  * @Description:对数据库驱动封装类

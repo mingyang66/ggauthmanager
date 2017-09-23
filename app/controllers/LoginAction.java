@@ -1,12 +1,6 @@
 
 package controllers;
 
-import framework.yaomy.log.GGLogger;
-import framework.yaomy.mongo.pool.GGMongoOperator;
-import framework.yaomy.util.ResultUtil;
-import ggauth.shiro.user.securitymanager.SecurityManagerPool;
-
-import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.shiro.authc.AuthenticationException;
@@ -15,11 +9,11 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 
-import com.mongodb.client.MongoDatabase;
-
+import framework.store.log.GGLogger;
+import framework.store.util.ResultUtil;
+import ggauth.shiro.user.securitymanager.SecurityManagerPool;
 import play.mvc.Controller;
 
 /**

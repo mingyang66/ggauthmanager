@@ -1,5 +1,5 @@
 
-package framework.yaomy.util;
+package framework.store.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

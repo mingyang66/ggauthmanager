@@ -1,5 +1,5 @@
 
-package framework.yaomy.util;
+package framework.store.util;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import framework.yaomy.log.GGLogger;
+import framework.store.log.GGLogger;
 
 /**
  * @Description:图片处理工具类

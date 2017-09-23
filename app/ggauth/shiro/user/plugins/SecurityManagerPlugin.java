@@ -1,12 +1,9 @@
 
 package ggauth.shiro.user.plugins;
 
-import play.PlayPlugin;
-import framework.yaomy.config.GGConfigurer;
-import framework.yaomy.log.GGLogger;
-import framework.yaomy.mongo.pool.GGMongoClientPool;
-import framework.yaomy.mongo.pool.GGMongoClients;
+import framework.store.log.GGLogger;
 import ggauth.shiro.user.securitymanager.SecurityManagerPool;
+import play.PlayPlugin;
 
 /**
  * @Description:shiro安全管理器初始化

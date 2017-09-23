@@ -1,2 +1,2 @@
-101:framework.yaomy.mongo.pool.GGMongoPlugin
+101:framework.store.mongo.pool.GGMongoPlugin
 102:ggauth.shiro.user.plugins.SecurityManagerPlugin

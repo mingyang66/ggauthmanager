@@ -1,7 +1,7 @@
-package framework.yaomy.util;
+package framework.store.util;
 
-import framework.yaomy.mongo.pool.DBCollection;
-import framework.yaomy.mongo.pool.GGMongoOperator;
+import framework.store.mongo.pool.DBCollection;
+import framework.store.mongo.pool.GGMongoOperator;
 
 public class MongoUtil {
 

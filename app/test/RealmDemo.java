@@ -1,9 +1,6 @@
 
 package test;
 
-import java.util.Collection;
-import java.util.Iterator;
-
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
@@ -14,16 +11,15 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.config.IniSecurityManagerFactory;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.Session;
-import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.Factory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import framework.yaomy.config.GGConfigurer;
-import framework.yaomy.log.GGLogger;
-import framework.yaomy.mongo.pool.GGMongoClientPool;
-import framework.yaomy.mongo.pool.GGMongoClients;
+import framework.store.config.GGConfigurer;
+import framework.store.log.GGLogger;
+import framework.store.mongo.pool.GGMongoClientPool;
+import framework.store.mongo.pool.GGMongoClients;
 
 /**
  * http://jinnianshilongnian.iteye.com/blog/2019547
