@@ -4,8 +4,11 @@ package ggauth.shiro.user.securitymanager;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.config.IniSecurityManagerFactory;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.Factory;
+
+import framework.store.log.GGLogger;
 
 /**
  * @Description:安全管理器管理
@@ -36,6 +39,8 @@ public enum SecurityManagerPool {
 			SecurityUtils.setSecurityManager(securityManager);
 			//获取主题
 			subject = SecurityUtils.getSubject();
+			//初始化session对象
+			initSession(subject);
 		}
 	}
 	/**
@@ -49,5 +54,18 @@ public enum SecurityManagerPool {
 			initSecurityManager();
 		}
 		return subject;
+	}
+	/**
+	 * 初始化session配置
+	 * @param subject
+	 * @return
+	 */
+	public Session initSession(Subject subject){
+		//设置session超时时间
+		Session session = subject.getSession();
+		GGLogger.info(session.getId());
+		GGLogger.info(session.getAttribute(session.getId()));
+		session.setTimeout(1000*30);
+		return session;
 	}
 }

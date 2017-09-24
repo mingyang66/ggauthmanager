@@ -44,7 +44,6 @@ public class DBCollection{
 
 	 private MongoDatabase db;
 	 private MongoCollection<Document> collection = null;
-//	 private String collectionName = null;
 	 private boolean shard = Boolean.FALSE;
 	 
 	 public DBCollection(MongoDatabase db, MongoCollection<Document> collection, boolean shard) {

@@ -9,6 +9,7 @@ import ggauth.shiro.user.model.User;
 import ggauth.shiro.user.service.UserService;
 import ggauth.shiro.user.serviceImpl.UserServiceImpl;
 import play.mvc.Controller;
+import play.mvc.With;
 import utils.PageUtil;
 
 /**
@@ -20,6 +21,7 @@ import utils.PageUtil;
  * @copyright (c) 2017 yaomy Co'Ltd Inc. All rights reserved.
  * @date 2017年9月19日 上午9:08:07
  */
+@With(LoginAction.class)
 public class UserAction extends Controller{
 	
 	private static UserService service = new UserServiceImpl();

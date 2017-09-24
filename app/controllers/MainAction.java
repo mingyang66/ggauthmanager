@@ -2,6 +2,7 @@
 package controllers;
 
 import play.mvc.Controller;
+import play.mvc.With;
 
 /**
  * @Description:TODO
@@ -12,11 +13,9 @@ import play.mvc.Controller;
  * @copyright (c) 2017 yaomy Co'Ltd Inc. All rights reserved.
  * @date 2017年9月6日 下午2:47:41
  */
+@With(LoginAction.class)
 public class MainAction extends Controller{
 
-	public static void index(){
-		render();
-	}
 	public static void dashboard(){
 		render();
 	}

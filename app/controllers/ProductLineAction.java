@@ -15,6 +15,7 @@ import framework.store.mongo.pool.WriteResult;
 import framework.store.util.ResultUtil;
 import models.ProductLine;
 import play.mvc.Controller;
+import play.mvc.With;
 import utils.PageUtil;
 
 /**
@@ -26,6 +27,7 @@ import utils.PageUtil;
  * @copyright (c) 2017 yaomy Co'Ltd Inc. All rights reserved.
  * @date 2017年9月7日 下午2:04:18
  */
+@With(LoginAction.class)
 public class ProductLineAction extends Controller{
 
 	/**

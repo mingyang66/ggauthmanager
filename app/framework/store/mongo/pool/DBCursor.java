@@ -110,6 +110,9 @@ public class DBCursor {
 		}
 		return this.mc.getServerAddress();
 	}
+	/**
+	 * 将查询对象转换成字符串
+	 */
 	public String toString(){
 		return this.it.toString();
 	}

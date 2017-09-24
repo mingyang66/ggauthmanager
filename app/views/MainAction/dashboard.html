@@ -230,6 +230,17 @@ String.prototype.endWith=function(str){
   var reg=new RegExp(str+"$");     
   return reg.test(this);        
 }
+jQuery.ajaxSetup({
+    complete:function(XMLHttpRequest,textStatus){
+          if(textStatus=="parsererror"){
+        	  jQuery.messager.alert('提示信息', "登陆超时！请重新登陆！", 'info',function(){
+                   window.location.href = '/LoginAction/index';
+               });
+          } else if(textStatus=="error"){
+        	  jQuery.messager.alert('提示信息', "请求超时！请稍后再试！", 'info');
+          }
+    }
+})
 </script>
 </body>
 </html>
