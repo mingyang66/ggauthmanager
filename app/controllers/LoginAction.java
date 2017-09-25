@@ -13,8 +13,10 @@ import org.apache.shiro.session.ExpiredSessionException;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.util.ThreadContext;
 
 import framework.store.log.GGLogger;
+import framework.store.util.DateUtil;
 import framework.store.util.ResultUtil;
 import ggauth.shiro.user.securitymanager.SecurityManagerPool;
 import play.mvc.Before;
@@ -42,7 +44,7 @@ public class LoginAction extends Controller{
 		Session session = subject.getSession();
 		try{
 			session.touch();//更新回话最后访问时间，JAVASE项目需要自动的调用更新回话访问的最后时间
-			GGLogger.info("------"+session.getStartTimestamp()+"----"+session.getLastAccessTime()+"-------"+session.getTimeout());
+			GGLogger.info("------"+DateUtil.dateToString(session.getStartTimestamp(), "yyyy-MM-dd HH:mm:ss")+"----"+DateUtil.dateToString(session.getLastAccessTime(), "yyyy-MM-dd HH:mm:ss")+"-------"+session.getTimeout());
 		} catch (UnknownSessionException e) {
 //			session.stop();
 			GGLogger.info("不能识别的session");
@@ -70,9 +72,14 @@ public class LoginAction extends Controller{
 		//获取主题对象
 		Subject subject = SecurityManagerPool.pool.getSubject();
 		try{
+			
 			//验证是否登录成功，如果未登录成功登录验证
 			if(!subject.isAuthenticated()){
 				GGLogger.info("登录验证身份！");
+				if(System.currentTimeMillis()-subject.getSession().getStartTimestamp().getTime()>=30000-1000){
+//					ThreadContext.remove(ThreadContext.SUBJECT_KEY);//移除线程中的subject
+//					subject.getSession().
+				}
 				//登录，即身份验证
 				subject.login(token);
 			}

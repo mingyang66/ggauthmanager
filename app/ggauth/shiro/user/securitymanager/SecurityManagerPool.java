@@ -63,8 +63,6 @@ public enum SecurityManagerPool {
 	public Session initSession(Subject subject){
 		//设置session超时时间
 		Session session = subject.getSession();
-		GGLogger.info(session.getId());
-		GGLogger.info(session.getAttribute(session.getId()));
 		session.setTimeout(1000*30);
 		return session;
 	}
