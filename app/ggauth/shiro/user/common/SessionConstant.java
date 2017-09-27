@@ -11,7 +11,6 @@ package ggauth.shiro.user.common;
  */
 public class SessionConstant {
 
-	public static final long TIMEOUT = 1000*30;//会话有效时间ms
-	public static final long TIMEOUT_NEVER = -1000;//设置会话永不过期有效时间ms
+	public static final long TIMEOUT = 1000*60*2;//会话有效时间ms
 	
 }

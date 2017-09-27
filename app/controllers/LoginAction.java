@@ -40,13 +40,14 @@ public class LoginAction extends Controller{
 	 */
 	@Before(unless={"index","login"})
 	static void validate(){
-		Subject subject = SecurityManagerPool.pool.getSubject();
-		if(!subject.isAuthenticated()){
-			redirect("/LoginAction/index");
-		}
-		Session session = subject.getSession();
 		try{
+			Subject subject = SecurityManagerPool.pool.getSubject();
+			if(!subject.isAuthenticated()){
+				redirect("/LoginAction/index");
+			}
+			Session session = subject.getSession();
 			session.touch();//更新回话最后访问时间，JAVASE项目需要自动的调用更新回话访问的最后时间
+			GGLogger.info("已经登录时间："+(System.currentTimeMillis()-session.getStartTimestamp().getTime())/1000+"秒");
 			GGLogger.info("------登录时间："+DateUtil.dateToString(session.getStartTimestamp(), "yyyy-MM-dd HH:mm:ss")+"----最后访问时间："+DateUtil.dateToString(session.getLastAccessTime(), "yyyy-MM-dd HH:mm:ss")+"-------会话有效时间："+session.getTimeout()/1000+"秒");
 		} catch (UnknownSessionException e) {
 			GGLogger.info("不能识别的session");
