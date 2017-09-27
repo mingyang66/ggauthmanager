@@ -1,14 +1,15 @@
 
 package ggauth.shiro.user.securitymanager;
 
+import ggauth.shiro.user.common.SessionConstant;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.config.IniSecurityManagerFactory;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.Factory;
-
-import framework.store.log.GGLogger;
+import org.apache.shiro.util.ThreadContext;
 
 /**
  * @Description:安全管理器管理
@@ -37,10 +38,7 @@ public enum SecurityManagerPool {
 			//获取SecurityManager安全管理器实例,并绑定给SecurityUtils
 			SecurityManager securityManager = factory.getInstance();
 			SecurityUtils.setSecurityManager(securityManager);
-			//获取主题
 			subject = SecurityUtils.getSubject();
-			//初始化session对象
-			initSession(subject);
 		}
 	}
 	/**
@@ -50,20 +48,11 @@ public enum SecurityManagerPool {
 	 * @date 2017年9月22日 上午9:12:55
 	 */
 	public Subject getSubject(){
-		if(subject == null) {
-			initSecurityManager();
+		Session session = subject.getSession();
+		if(System.currentTimeMillis()-session.getLastAccessTime().getTime()>=session.getTimeout()-1000){
+			ThreadContext.remove(ThreadContext.SUBJECT_KEY);//移除线程中的subject
+			subject = SecurityUtils.getSubject();
 		}
 		return subject;
-	}
-	/**
-	 * 初始化session配置
-	 * @param subject
-	 * @return
-	 */
-	public Session initSession(Subject subject){
-		//设置session超时时间
-		Session session = subject.getSession();
-		session.setTimeout(1000*30);
-		return session;
 	}
 }
