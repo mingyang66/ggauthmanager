@@ -50,9 +50,6 @@ public enum SecurityManagerPool {
 	 */
 	public Subject getSubject(){
 		Session session = subject.getSession();
-		GGLogger.info("距离上次访问"+(System.currentTimeMillis()-session.getLastAccessTime().getTime())/1000+"秒");
-		GGLogger.info("已登录："+(System.currentTimeMillis()-session.getStartTimestamp().getTime())/1000+"秒");
-		GGLogger.info((SessionConstant.TIMEOUT-1000)/1000+"秒");
 		if(System.currentTimeMillis()-session.getStartTimestamp().getTime()>=SessionConstant.TIMEOUT-1000){
 			ThreadContext.remove(ThreadContext.SUBJECT_KEY);//移除线程中的subject
 			subject = SecurityUtils.getSubject();
