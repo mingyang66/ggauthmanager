@@ -1,13 +1,6 @@
 
 package ggauth.shiro.user.serviceImpl;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.bson.Document;
-
 import framework.store.mongo.pool.DBCollection;
 import framework.store.mongo.pool.DBCursor;
 import framework.store.mongo.pool.GGDBCursor;
@@ -15,6 +8,13 @@ import framework.store.mongo.pool.GGMongoOperator;
 import framework.store.mongo.pool.WriteResult;
 import ggauth.shiro.user.model.Role;
 import ggauth.shiro.user.service.RoleService;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.bson.Document;
 
 /**
  * @Description:TODO

@@ -1,8 +1,11 @@
 
 package ggauth.shiro.user.realm;
 
-import java.util.Iterator;
-import java.util.Map;
+import framework.store.log.GGLogger;
+import ggauth.shiro.user.common.PasswordHelper;
+import ggauth.shiro.user.model.User;
+import ggauth.shiro.user.service.UserService;
+import ggauth.shiro.user.serviceImpl.UserServiceImpl;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -12,18 +15,10 @@ import org.apache.shiro.authc.SaltedAuthenticationInfo;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.cache.Cache;
-import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.util.ByteSource;
-
-import framework.store.log.GGLogger;
-import ggauth.shiro.user.common.PasswordHelper;
-import ggauth.shiro.user.model.User;
-import ggauth.shiro.user.service.UserService;
-import ggauth.shiro.user.serviceImpl.UserServiceImpl;
 
 /**
  * @Description:获取subject相关信息
@@ -101,5 +96,4 @@ public class UserRealm extends AuthorizingRealm{
 			}
 		};
 	}
-
 }

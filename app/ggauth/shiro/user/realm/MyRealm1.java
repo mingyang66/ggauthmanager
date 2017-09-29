@@ -1,6 +1,12 @@
 
 package ggauth.shiro.user.realm;
 
+import framework.store.log.GGLogger;
+import ggauth.shiro.user.common.PasswordHelper;
+import ggauth.shiro.user.model.User;
+import ggauth.shiro.user.service.UserService;
+import ggauth.shiro.user.serviceImpl.UserServiceImpl;
+
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -12,12 +18,6 @@ import org.apache.shiro.realm.Realm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.util.ByteSource;
-
-import framework.store.log.GGLogger;
-import ggauth.shiro.user.common.PasswordHelper;
-import ggauth.shiro.user.model.User;
-import ggauth.shiro.user.service.UserService;
-import ggauth.shiro.user.serviceImpl.UserServiceImpl;
 
 /**
  * @Description:TODO

@@ -1,8 +1,8 @@
 package framework.store.mongo.pool;
 
+import play.PlayPlugin;
 import framework.store.config.GGConfigurer;
 import framework.store.log.GGLogger;
-import play.PlayPlugin;
 
 public class GGMongoPlugin extends PlayPlugin{
 

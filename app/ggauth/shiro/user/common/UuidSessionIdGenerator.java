@@ -2,7 +2,6 @@
 package ggauth.shiro.user.common;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator;

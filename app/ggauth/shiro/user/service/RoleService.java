@@ -1,11 +1,11 @@
 
 package ggauth.shiro.user.service;
 
+import ggauth.shiro.user.model.Role;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import ggauth.shiro.user.model.Role;
 
 /**
  * @Description:TODO

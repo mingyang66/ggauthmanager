@@ -1,14 +1,6 @@
 
 package ggauth.shiro.user.serviceImpl;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Pattern;
-
-import org.bson.Document;
-
 import framework.store.log.GGLogger;
 import framework.store.mongo.pool.DBCollection;
 import framework.store.mongo.pool.DBCursor;
@@ -18,6 +10,14 @@ import framework.store.mongo.pool.WriteResult;
 import ggauth.shiro.user.common.PasswordHelper;
 import ggauth.shiro.user.model.User;
 import ggauth.shiro.user.service.UserService;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Pattern;
+
+import org.bson.Document;
 
 /**
  * @Description:TODO
