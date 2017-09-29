@@ -1,26 +1,34 @@
 
 package controllers;
 
+import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.cache.Cache;
+import org.apache.shiro.cache.CacheManager;
+import org.apache.shiro.cache.ehcache.EhCacheManager;
+import org.apache.shiro.mgt.RealmSecurityManager;
 import org.apache.shiro.session.ExpiredSessionException;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.session.mgt.DefaultSessionManager;
 import org.apache.shiro.session.mgt.SessionManager;
+import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ThreadContext;
 
 import framework.store.log.GGLogger;
 import framework.store.util.DateUtil;
 import framework.store.util.ResultUtil;
+import ggauth.shiro.user.realm.UserRealm;
 import ggauth.shiro.user.securitymanager.SecurityManagerPool;
 import play.mvc.Before;
 import play.mvc.Controller;
@@ -85,9 +93,24 @@ public class LoginAction extends Controller{
 				//登录，即身份验证
 				subject.login(token);
 			}
-			GGLogger.info("是否登录成功---"+subject.isAuthenticated());
-			GGLogger.info("是否记住我----"+subject.isRemembered());
+			String sb = "是否登录成功:"+subject.isAuthenticated()+"--------是否记住我:"+subject.isRemembered()+
+					"---------sessionid:"+subject.getSession().getId();
+			GGLogger.info(sb);
 			
+			
+			GGLogger.info(session.get("authenticationCache"));
+			RealmSecurityManager securityManager =  (RealmSecurityManager) SecurityUtils.getSecurityManager();  
+			UserRealm userRealm = (UserRealm) securityManager.getRealms().iterator().next();  
+			
+			Cache<Object, AuthenticationInfo> info = userRealm.getAuthenticationCache();
+			for(Iterator<Object> it=info.keys().iterator();it.hasNext();){
+				System.out.println(it.next());
+			}
+			AuthenticationInfo authenInfo = info.get(info.keys().iterator().next());
+			PrincipalCollection principal = authenInfo.getPrincipals();
+			String password1 = authenInfo.getCredentials().toString();
+			System.out.println(password1);
+
 			if(subject.isPermitted("system+edit1+10")){
 				System.out.println("----------------------拥有打印权限----------------");
 			} else {

@@ -1,6 +1,9 @@
 
 package ggauth.shiro.user.realm;
 
+import java.util.Iterator;
+import java.util.Map;
+
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -9,6 +12,8 @@ import org.apache.shiro.authc.SaltedAuthenticationInfo;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.cache.Cache;
+import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
@@ -77,7 +82,7 @@ public class UserRealm extends AuthorizingRealm{
 		if(!password_date.equals(passwordHelper.encryptPassword(password, salt))) {  
 			throw new IncorrectCredentialsException("密码不正确"); //如果密码错误  
 		}  
-		
+
 		return new SaltedAuthenticationInfo() {
 			
 			@Override
