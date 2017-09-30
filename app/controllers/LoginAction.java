@@ -52,8 +52,8 @@ public class LoginAction extends Controller{
 				redirect("/LoginAction/index");
 			}
 			Session session = subject.getSession();
-			GGLogger.info("-----已经登录时间："+(System.currentTimeMillis()-session.getStartTimestamp().getTime())/1000+"秒"+
-						  "-----距离上次访问:"+(System.currentTimeMillis()-session.getLastAccessTime().getTime())/1000+"秒"+
+			GGLogger.info("-----登录时长："+(System.currentTimeMillis()-session.getStartTimestamp().getTime())/1000+"秒"+
+						  "-----距离上次访问时长:"+(System.currentTimeMillis()-session.getLastAccessTime().getTime())/1000+"秒"+
 						  "-----登录时间："+DateUtil.dateToString(session.getStartTimestamp(), "yyyy-MM-dd HH:mm:ss")+
 						  "-----最后访问时间："+DateUtil.dateToString(session.getLastAccessTime(), "yyyy-MM-dd HH:mm:ss")+
 						  "-----会话有效时间："+session.getTimeout()/1000+"秒");
@@ -135,10 +135,13 @@ public class LoginAction extends Controller{
 	public static void logout(){
 		Subject subject = SecurityUtils.getSubject();
 		Session session = subject.getSession();
-		if(session.getAttribute(session.getId()) != null){
-			subject.logout();
-		}
-		GGLogger.info("退出登录---最后访问时间是："+DateUtil.dateToString(session.getLastAccessTime(), "yyyy-MM-dd HH:mm:ss") );
+		GGLogger.info(
+				  "-----退出时间："+DateUtil.dateToString(session.getLastAccessTime(), "yyyy-MM-dd HH:mm:ss")+
+				  "-----登录时长："+(System.currentTimeMillis()-session.getStartTimestamp().getTime())/1000+"秒"+
+				  "-----距离上次访问时长:"+(System.currentTimeMillis()-session.getLastAccessTime().getTime())/1000+"秒"+
+				  "-----登录时间："+DateUtil.dateToString(session.getStartTimestamp(), "yyyy-MM-dd HH:mm:ss")+
+				  "-----会话有效时间："+session.getTimeout()/1000+"秒");
+		subject.logout();
 		redirect("/LoginAction/index");
 	}
 }

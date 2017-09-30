@@ -24,7 +24,7 @@ import org.apache.shiro.subject.support.DefaultSubjectContext;
  */
 public class EhCacheHelper {
 
-	public static void getCache(){
+	public static void clearSession(){
 		//获取主题对象
 //		Subject subject = SecurityUtils.getSubject();
 //		
@@ -35,12 +35,14 @@ public class EhCacheHelper {
 		
 		RealmSecurityManager securityManager =  (RealmSecurityManager) SecurityUtils.getSecurityManager();  
 		UserRealm userRealm = (UserRealm) securityManager.getRealms().iterator().next();  
+		userRealm.clearAuthenticationInfoAuth();
 		
-		Cache<Object, AuthenticationInfo> info = userRealm.getAuthenticationCache();
-		GGLogger.info(info.keys().iterator().next());
-		AuthenticationInfo authenInfo = info.get(info.keys().iterator().next());
-		PrincipalCollection principal = authenInfo.getPrincipals();
-		String password1 = authenInfo.getCredentials().toString();
-		GGLogger.info("用户名 ："+principal+"----------密码："+password1);
+		
+//		Cache<Object, AuthenticationInfo> info = userRealm.getAuthenticationCache();
+//		GGLogger.info(info.keys().iterator().next());
+//		AuthenticationInfo authenInfo = info.get(info.keys().iterator().next());
+//		PrincipalCollection principal = authenInfo.getPrincipals();
+//		String password1 = authenInfo.getCredentials().toString();
+//		GGLogger.info("用户名 ："+principal+"----------密码："+password1);
 	}
 }

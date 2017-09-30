@@ -97,4 +97,8 @@ public class UserRealm extends AuthorizingRealm{
 			}
 		};
 	}
+	
+	public void clearAuthenticationInfoAuth(){
+		this.clearCachedAuthenticationInfo(SecurityUtils.getSubject().getPrincipals());
+	}
 }
