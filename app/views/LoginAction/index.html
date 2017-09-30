@@ -86,9 +86,14 @@
 			datatype : 'json',
 	        data : formData,
 			success : function(data) {
-				console.log(data)
 				if (data && data.code == 100) {
 					window.location.href='/MainAction/dashboard';
+				} else if(data && data.code == 101){
+					layer.tips(data.msg, '#username');
+				} else if(data && data.code == 102){
+					layer.tips(data.msg, '#password');
+				} else if(data && data.code == 103){
+					layer.tips(data.msg, '#username');
 				} else {
 					layer.msg(data.msg, {icon: 5});
 				}

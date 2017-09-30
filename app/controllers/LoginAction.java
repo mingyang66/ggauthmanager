@@ -1,6 +1,7 @@
 
 package controllers;
 
+import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
@@ -83,13 +84,13 @@ public class LoginAction extends Controller{
 		} catch(UnknownAccountException e){
 			map = ResultUtil.getReturnResult(101, "账号不存在");
 		} catch (IncorrectCredentialsException  e) {
-			map = ResultUtil.getReturnResult(101, "密码不正确");
+			map = ResultUtil.getReturnResult(102, "密码不正确");
 		} catch (LockedAccountException e) {
-			map = ResultUtil.getReturnResult(101, "账号被锁定");
+			map = ResultUtil.getReturnResult(103, "账号被锁定");
 		} catch (ExcessiveAttemptsException e) {
-			map = ResultUtil.getReturnResult(101, "登录失败次数过多");
+			map = ResultUtil.getReturnResult(104, "登录失败次数过多");
 		} catch (AuthenticationException e) {
-			map = ResultUtil.getReturnResult(101, "认证失败");
+			map = ResultUtil.getReturnResult(105, "认证失败");
 		} catch (UnknownSessionException e) {
 			ThreadHelper.removeThreadSubject();//删除线程中的subject
 			verifyUserAuth(username, password);
