@@ -7,6 +7,7 @@ import ggauth.shiro.user.model.User;
 import ggauth.shiro.user.service.UserService;
 import ggauth.shiro.user.serviceImpl.UserServiceImpl;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;

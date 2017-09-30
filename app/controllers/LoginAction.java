@@ -26,6 +26,8 @@ import play.mvc.Controller;
 import framework.store.log.GGLogger;
 import framework.store.util.DateUtil;
 import framework.store.util.ResultUtil;
+import ggauth.shiro.user.common.EhCacheHelper;
+import ggauth.shiro.user.common.ThreadHelper;
 import ggauth.shiro.user.realm.UserRealm;
 
 /**
@@ -50,16 +52,16 @@ public class LoginAction extends Controller{
 			}
 			Session session = subject.getSession();
 			GGLogger.info("已经登录时间："+(System.currentTimeMillis()-session.getStartTimestamp().getTime())/1000+"秒"+
-					"-----距离上次访问"+(System.currentTimeMillis()-session.getLastAccessTime().getTime())/1000+"秒"+
+					"-----距离上次访问:"+(System.currentTimeMillis()-session.getLastAccessTime().getTime())/1000+"秒"+
 					"------登录时间："+DateUtil.dateToString(session.getStartTimestamp(), "yyyy-MM-dd HH:mm:ss")+
 					"----最后访问时间："+DateUtil.dateToString(session.getLastAccessTime(), "yyyy-MM-dd HH:mm:ss")+
 					"-------会话有效时间："+session.getTimeout()/1000+"秒");
 			session.touch();//更新回话最后访问时间，JAVASE项目需要自动的调用更新回话访问的最后时间
 		} catch (UnknownSessionException e) {
-			GGLogger.info("不能识别的session");
+			GGLogger.info("session会话已过期但是subject还未过期");
 			redirect("/LoginAction/index");
 		} catch (ExpiredSessionException e) {
-			GGLogger.info("缓存过期");
+			GGLogger.info("会话过期");
 			redirect("/LoginAction/index");
 		}
 	}
@@ -79,24 +81,21 @@ public class LoginAction extends Controller{
 		try{
 			verifyUserAuth(username, password);
 		} catch(UnknownAccountException e){
-			GGLogger.info("账号不存在"+e);
 			map = ResultUtil.getReturnResult(101, "账号不存在");
 		} catch (IncorrectCredentialsException  e) {
-			GGLogger.info("密码不正确"+e);
 			map = ResultUtil.getReturnResult(101, "密码不正确");
 		} catch (LockedAccountException e) {
-			GGLogger.info("账号被锁定"+e);
 			map = ResultUtil.getReturnResult(101, "账号被锁定");
 		} catch (ExcessiveAttemptsException e) {
-			GGLogger.info("登录失败次数过多"+e);
 			map = ResultUtil.getReturnResult(101, "登录失败次数过多");
 		} catch (AuthenticationException e) {
-			GGLogger.info("认证失败"+e);
 			map = ResultUtil.getReturnResult(101, "认证失败");
 		} catch (UnknownSessionException e) {
-			ThreadContext.remove(ThreadContext.SUBJECT_KEY);//移除线程中的subject
+			ThreadHelper.removeThreadSubject();//删除线程中的subject
 			verifyUserAuth(username, password);
 		}
+		GGLogger.info(map.get("msg"));
+		
 		renderJSON(map);
 	}
 	/**
@@ -120,24 +119,10 @@ public class LoginAction extends Controller{
 				"---------sessionid:"+subject.getSession().getId();
 		GGLogger.info(sb);
 		
-		Session session = subject.getSession();
-		GGLogger.info("value:"+session.getAttribute(DefaultSubjectContext.AUTHENTICATED_SESSION_KEY));//记录的是用户认证
-		GGLogger.info("value:"+session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY));//这个属性记录的是用户名
-		GGLogger.info("value:"+session.getAttribute(DefaultSubjectContext.SESSION_CREATION_ENABLED));
-		
-		RealmSecurityManager securityManager =  (RealmSecurityManager) SecurityUtils.getSecurityManager();  
-		UserRealm userRealm = (UserRealm) securityManager.getRealms().iterator().next();  
-		
-		Cache<Object, AuthenticationInfo> info = userRealm.getAuthenticationCache();
-		AuthenticationInfo authenInfo = info.get(session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY).toString());
-		PrincipalCollection principal = authenInfo.getPrincipals();
-		String password1 = authenInfo.getCredentials().toString();
-		GGLogger.info("用户名 ："+principal+"----------密码："+password1);
-
 		if(subject.isPermitted("system+edit1+10")){
-			System.out.println("----------------------拥有打印权限----------------");
+			GGLogger.info("----------------------拥有打印权限----------------");
 		} else {
-			System.out.println("----------------------无打印权限---------------------");
+			GGLogger.info("----------------------无打印权限---------------------");
 		}
 	}
 	/**
