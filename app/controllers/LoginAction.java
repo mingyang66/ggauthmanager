@@ -51,11 +51,11 @@ public class LoginAction extends Controller{
 				redirect("/LoginAction/index");
 			}
 			Session session = subject.getSession();
-			GGLogger.info("已经登录时间："+(System.currentTimeMillis()-session.getStartTimestamp().getTime())/1000+"秒"+
-					"-----距离上次访问:"+(System.currentTimeMillis()-session.getLastAccessTime().getTime())/1000+"秒"+
-					"------登录时间："+DateUtil.dateToString(session.getStartTimestamp(), "yyyy-MM-dd HH:mm:ss")+
-					"----最后访问时间："+DateUtil.dateToString(session.getLastAccessTime(), "yyyy-MM-dd HH:mm:ss")+
-					"-------会话有效时间："+session.getTimeout()/1000+"秒");
+			GGLogger.info("-----已经登录时间："+(System.currentTimeMillis()-session.getStartTimestamp().getTime())/1000+"秒"+
+						  "-----距离上次访问:"+(System.currentTimeMillis()-session.getLastAccessTime().getTime())/1000+"秒"+
+						  "-----登录时间："+DateUtil.dateToString(session.getStartTimestamp(), "yyyy-MM-dd HH:mm:ss")+
+						  "-----最后访问时间："+DateUtil.dateToString(session.getLastAccessTime(), "yyyy-MM-dd HH:mm:ss")+
+						  "-----会话有效时间："+session.getTimeout()/1000+"秒");
 			session.touch();//更新回话最后访问时间，JAVASE项目需要自动的调用更新回话访问的最后时间
 		} catch (UnknownSessionException e) {
 			GGLogger.info("session会话已过期但是subject还未过期");
