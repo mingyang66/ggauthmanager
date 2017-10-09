@@ -94,6 +94,9 @@ public class LoginAction extends Controller{
 		} catch (UnknownSessionException e) {
 			ThreadHelper.removeThreadSubject();//删除线程中的subject
 			verifyUserAuth(username, password);
+		} catch (ExpiredSessionException e) {
+			ThreadHelper.removeThreadSubject();//删除线程中的subject
+			verifyUserAuth(username, password);
 		}
 		GGLogger.info(map.get("msg"));
 		
