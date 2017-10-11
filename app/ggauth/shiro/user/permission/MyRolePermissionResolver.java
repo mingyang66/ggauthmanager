@@ -9,7 +9,7 @@ import org.apache.shiro.authz.Permission;
 import org.apache.shiro.authz.permission.RolePermissionResolver;
 
 /**
- * @Description:TODO
+ * @Description:用于根据角色解析相应的权限集合
  * @version 1.0
  * @since JDK1.7
  * @author yaomy

@@ -8,7 +8,7 @@ import org.apache.shiro.authz.permission.WildcardPermission;
 import framework.store.log.GGLogger;
 
 /**
- * @Description:TODO
+ * @Description:用于解析权限字符串到Permission实例
  * @version 1.0
  * @since JDK1.7
  * @author yaomy
