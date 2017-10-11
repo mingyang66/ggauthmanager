@@ -1,10 +1,6 @@
 
 package ggauth.shiro.user.common;
 
-import ggauth.shiro.user.realm.UserRealm;
-
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.mgt.RealmSecurityManager;
 import org.apache.shiro.util.ThreadContext;
 
 /**

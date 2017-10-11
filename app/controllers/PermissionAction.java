@@ -1,7 +1,6 @@
 
 package controllers;
 
-import framework.store.util.ResultUtil;
 import ggauth.shiro.user.model.Permission;
 import ggauth.shiro.user.service.PermissionService;
 import ggauth.shiro.user.serviceImpl.PermissionServiceImpl;
@@ -12,6 +11,7 @@ import java.util.Map;
 import play.mvc.Controller;
 import play.mvc.With;
 import utils.PageUtil;
+import utils.ResultUtil;
 
 /**
  * @Description:权限action

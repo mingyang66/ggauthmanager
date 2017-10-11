@@ -1,10 +1,10 @@
 
 package ggauth.shiro.user.listener;
 
+import ggframework.bottom.log.GGLogger;
+
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.SessionListener;
-
-import framework.store.log.GGLogger;
 
 /**
  * @Description:TODO

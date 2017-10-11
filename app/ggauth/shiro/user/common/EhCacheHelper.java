@@ -1,17 +1,10 @@
 
 package ggauth.shiro.user.common;
 
-import framework.store.log.GGLogger;
 import ggauth.shiro.user.realm.UserRealm;
 
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.cache.Cache;
 import org.apache.shiro.mgt.RealmSecurityManager;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.subject.Subject;
-import org.apache.shiro.subject.support.DefaultSubjectContext;
 
 /**
  * @Description:TODO

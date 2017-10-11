@@ -1,11 +1,11 @@
 
 package ggauth.shiro.user.realm;
 
-import framework.store.log.GGLogger;
 import ggauth.shiro.user.common.PasswordHelper;
 import ggauth.shiro.user.model.User;
 import ggauth.shiro.user.service.UserService;
 import ggauth.shiro.user.serviceImpl.UserServiceImpl;
+import ggframework.bottom.log.GGLogger;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;

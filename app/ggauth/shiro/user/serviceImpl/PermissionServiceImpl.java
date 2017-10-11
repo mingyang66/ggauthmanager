@@ -1,19 +1,22 @@
 
 package ggauth.shiro.user.serviceImpl;
 
-import framework.store.mongo.pool.DBCollection;
-import framework.store.mongo.pool.DBCursor;
-import framework.store.mongo.pool.GGDBCursor;
-import framework.store.mongo.pool.GGMongoOperator;
-import framework.store.mongo.pool.WriteResult;
 import ggauth.shiro.user.model.Permission;
 import ggauth.shiro.user.service.PermissionService;
+import ggframework.bottom.store.mongodb.BasicDBObject;
+import ggframework.bottom.store.mongodb.DBCollection;
+import ggframework.bottom.store.mongodb.DBCursor;
+import ggframework.bottom.store.mongodb.DBObject;
+import ggframework.bottom.store.mongodb.GGDBCursor;
+import ggframework.bottom.store.mongodb.GGMongoOperator;
+import ggframework.bottom.store.mongodb.WriteResult;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.bson.Document;
+import utils.MongoUtil;
+
 
 /**
  * @Description:TODO
@@ -25,7 +28,6 @@ import org.bson.Document;
  * @date 2017年9月21日 下午5:27:11
  */
 public class PermissionServiceImpl implements PermissionService{
-	private DBCollection collection = GGMongoOperator.getGGBusinessDBCollection("gg_permission");
 
 	@Override
 	public void deletePermission(Long permissionId) {
@@ -35,21 +37,23 @@ public class PermissionServiceImpl implements PermissionService{
 
 	@Override
 	public List<Map<String, Object>> findPermissions(Integer rows, Integer page) {
-		Document query = new Document();
+		DBCollection collection = MongoUtil.getGGUserCollection("gg_permission");
+		BasicDBObject query = new BasicDBObject();
 		query.put("status", 1);
 		
-		Document sort = new Document();
+		BasicDBObject sort = new BasicDBObject();
     	sort.put("create_time", -1);
     	
     	DBCursor cursor = collection.find(query).sort(sort).limit(rows).skip((page-1)*rows);
-    	List<Map<String, Object>> list = GGDBCursor.getListMap(cursor);
+    	List<Map<String, Object>> list = GGDBCursor.find(cursor);
     	
 		return list;
 	}
 
 	@Override
 	public long findPermissionCount() {
-		Document query = new Document();
+		DBCollection collection = MongoUtil.getGGUserCollection("gg_permission");
+		BasicDBObject query = new BasicDBObject();
 		query.put("status", 1);
 		
 		long count = collection.count(query);
@@ -58,7 +62,8 @@ public class PermissionServiceImpl implements PermissionService{
 
 	@Override
 	public boolean createPermission(Permission permission) {
-		Document doc = GGMongoOperator.newId(collection);
+		DBCollection collection = MongoUtil.getGGUserCollection("gg_permission");
+		BasicDBObject doc = GGMongoOperator.newDBObject(collection);
 		doc.append("permission", permission.getPermission());
 		doc.append("description", permission.getDescription());
 		doc.append("available", permission.getAvailable());
@@ -68,23 +73,22 @@ public class PermissionServiceImpl implements PermissionService{
 		doc.append("create_time", new Date());
 		doc.append("update_time", new Date());
 		
-		WriteResult result = collection.insertOne(doc);
-		if(result.getModifiedCount() == 1) {
-			return true;
-		}
-		return false;	}
+		collection.insert(doc);
+		return true;
+	}
 
 	@Override
 	public boolean findPermissionAndDel(Long permissionId) {
-		Document query = new Document();
+		DBCollection collection = MongoUtil.getGGUserCollection("gg_permission");
+		BasicDBObject query = new BasicDBObject();
 		query.append("_id", permissionId);
 		
-		Document value = new Document();
+		BasicDBObject value = new BasicDBObject();
 		value.append("status", 0);
 		value.append("operator", "admin");
 		value.append("update_time", new Date());
 		
-		Document doc = collection.findOneAndUpdate(query, new Document("$set", value));
+		DBObject doc = collection.findAndModify(query, new BasicDBObject("$set", value));
 		if(doc != null) {
 			return true;
 		}
@@ -93,17 +97,18 @@ public class PermissionServiceImpl implements PermissionService{
 
 	@Override
 	public boolean findPermissionAndUpdate(Permission permission) {
-		Document query = new Document();
+		DBCollection collection = MongoUtil.getGGUserCollection("gg_permission");
+		BasicDBObject query = new BasicDBObject();
 		query.append("_id", permission.getId());
 		
-		Document update = new Document();
+		BasicDBObject update = new BasicDBObject();
 		update.append("permission", permission.getPermission());
 		update.append("description", permission.getDescription());
 		update.append("available", permission.getAvailable());
 		update.append("operator", "admin");
 		update.append("update_time", new Date());
 		
-		Document doc = collection.findOneAndUpdate(query, new Document("$set", update));	
+		DBObject doc = collection.findAndModify(query, new BasicDBObject("$set", update));	
 		if(doc != null){
 			return true;
 		}
@@ -112,15 +117,16 @@ public class PermissionServiceImpl implements PermissionService{
 
 	@Override
 	public Permission findByPermissionId(Long permissionid) {
-		Document query = new Document();
+		DBCollection collection = MongoUtil.getGGUserCollection("gg_permission");
+		BasicDBObject query = new BasicDBObject();
 		query.append("status", 1);
 		query.append("_id", permissionid);
 		
-		Document fields = new Document();
+		BasicDBObject fields = new BasicDBObject();
 		fields.append("permission", 1);
 		fields.append("description", 1);
 		fields.append("available", 1);
-		Document p = collection.findOne(query, fields);
+		DBObject p = collection.findOne(query, fields);
 		
 		Permission permission = new Permission();
 		permission.setId(p.getLong("_id"));

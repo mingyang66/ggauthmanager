@@ -1,13 +1,13 @@
 
 package ggauth.shiro.user.common;
 
+import ggframework.bottom.log.GGLogger;
+
 import java.io.Serializable;
 
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator;
 import org.apache.shiro.session.mgt.eis.SessionIdGenerator;
-
-import framework.store.log.GGLogger;
 
 /**
  * @Description:TODO

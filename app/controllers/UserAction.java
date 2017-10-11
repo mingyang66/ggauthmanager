@@ -1,7 +1,6 @@
 
 package controllers;
 
-import framework.store.util.ResultUtil;
 import ggauth.shiro.user.model.User;
 import ggauth.shiro.user.service.UserService;
 import ggauth.shiro.user.serviceImpl.UserServiceImpl;
@@ -12,6 +11,7 @@ import java.util.Map;
 import play.mvc.Controller;
 import play.mvc.With;
 import utils.PageUtil;
+import utils.ResultUtil;
 
 /**
  * @Description:TODO

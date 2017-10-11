@@ -1,20 +1,22 @@
 
 package ggauth.shiro.user.serviceImpl;
 
-import framework.store.mongo.pool.DBCollection;
-import framework.store.mongo.pool.DBCursor;
-import framework.store.mongo.pool.GGDBCursor;
-import framework.store.mongo.pool.GGMongoOperator;
-import framework.store.mongo.pool.WriteResult;
 import ggauth.shiro.user.model.Role;
 import ggauth.shiro.user.service.RoleService;
+import ggframework.bottom.store.mongodb.BasicDBObject;
+import ggframework.bottom.store.mongodb.DBCollection;
+import ggframework.bottom.store.mongodb.DBCursor;
+import ggframework.bottom.store.mongodb.DBObject;
+import ggframework.bottom.store.mongodb.GGDBCursor;
+import ggframework.bottom.store.mongodb.GGMongoOperator;
+import ggframework.bottom.store.mongodb.WriteResult;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.bson.Document;
+import utils.MongoUtil;
 
 /**
  * @Description:TODO
@@ -27,11 +29,10 @@ import org.bson.Document;
  */
 public class RoleServiceImpl implements RoleService{
 	
-	private DBCollection collection = GGMongoOperator.getGGBusinessDBCollection("gg_role");
-	
 	@Override
 	public boolean createRole(Role role) {
-		Document doc = GGMongoOperator.newId(collection);
+		DBCollection collection = MongoUtil.getGGUserCollection("gg_role");
+		BasicDBObject doc = GGMongoOperator.newDBObject(collection);
 		doc.append("role", role.getRole());
 		doc.append("description", role.getDescription());
 		doc.append("available", role.getAvailable());
@@ -41,11 +42,8 @@ public class RoleServiceImpl implements RoleService{
 		doc.append("create_time", new Date());
 		doc.append("update_time", new Date());
 		
-		WriteResult result = collection.insertOne(doc);
-		if(result.getModifiedCount() == 1) {
-			return true;
-		}
-		return false;
+		collection.insert(doc);
+		return true;
 	}
 
 	@Override
@@ -68,17 +66,18 @@ public class RoleServiceImpl implements RoleService{
 
 	@Override
 	public boolean findRoleAndUpdate(Role role) {
-		Document query = new Document();
+		DBCollection collection = MongoUtil.getGGUserCollection("gg_role");
+		BasicDBObject query = new BasicDBObject();
 		query.append("_id", role.getId());
 		
-		Document update = new Document();
+		BasicDBObject update = new BasicDBObject();
 		update.append("role", role.getRole());
 		update.append("description", role.getDescription());
 		update.append("available", role.getAvailable());
 		update.append("operator", "admin");
 		update.append("update_time", new Date());
 		
-		Document doc = collection.findOneAndUpdate(query, new Document("$set", update));	
+		DBObject doc = collection.findAndModify(query, new BasicDBObject("$set", update));	
 		if(doc != null){
 			return true;
 		}
@@ -87,15 +86,16 @@ public class RoleServiceImpl implements RoleService{
 
 	@Override
 	public boolean findRoleAndDel(Long roleId) {
-		Document query = new Document();
+		DBCollection collection = MongoUtil.getGGUserCollection("gg_role");
+		BasicDBObject query = new BasicDBObject();
 		query.append("_id", roleId);
 		
-		Document value = new Document();
+		BasicDBObject value = new BasicDBObject();
 		value.append("status", 0);
 		value.append("operator", "admin");
 		value.append("update_time", new Date());
 		
-		Document doc = collection.findOneAndUpdate(query, new Document("$set", value));
+		DBObject doc = collection.findAndModify(query, new BasicDBObject("$set", value));
 		if(doc != null) {
 			return true;
 		}
@@ -104,7 +104,8 @@ public class RoleServiceImpl implements RoleService{
 
 	@Override
 	public long findRoleCount() {
-		Document query = new Document();
+		DBCollection collection = MongoUtil.getGGUserCollection("gg_role");
+		BasicDBObject query = new BasicDBObject();
 		query.put("status", 1);
 		
 		long count = collection.count(query);
@@ -125,29 +126,31 @@ public class RoleServiceImpl implements RoleService{
 	 */
 	@Override
 	public List<Map<String, Object>> findRoles(Integer rows, Integer page) {
-		Document query = new Document();
+		DBCollection collection = MongoUtil.getGGUserCollection("gg_role");
+		BasicDBObject query = new BasicDBObject();
 		query.put("status", 1);
 		
-		Document sort = new Document();
+		BasicDBObject sort = new BasicDBObject();
     	sort.put("create_time", -1);
     	
     	DBCursor cursor = collection.find(query).sort(sort).limit(rows).skip((page-1)*rows);
-    	List<Map<String, Object>> list = GGDBCursor.getListMap(cursor);
+    	List<Map<String, Object>> list = GGDBCursor.find(cursor);
     	
 		return list;
 	}
 
 	@Override
 	public Role findByRoleId(Long roleId) {
-		Document query = new Document();
+		DBCollection collection = MongoUtil.getGGUserCollection("gg_role");
+		BasicDBObject query = new BasicDBObject();
 		query.append("status", 1);
 		query.append("_id", roleId);
 		
-		Document fields = new Document();
+		BasicDBObject fields = new BasicDBObject();
 		fields.append("role", 1);
 		fields.append("description", 1);
 		fields.append("available", 1);
-		Document p = collection.findOne(query, fields);
+		DBObject p = collection.findOne(query, fields);
 		
 		Role role = new Role();
 		role.setId(p.getLong("_id"));

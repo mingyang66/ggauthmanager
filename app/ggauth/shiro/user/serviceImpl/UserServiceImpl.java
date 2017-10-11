@@ -1,15 +1,17 @@
 
 package ggauth.shiro.user.serviceImpl;
 
-import framework.store.log.GGLogger;
-import framework.store.mongo.pool.DBCollection;
-import framework.store.mongo.pool.DBCursor;
-import framework.store.mongo.pool.GGDBCursor;
-import framework.store.mongo.pool.GGMongoOperator;
-import framework.store.mongo.pool.WriteResult;
 import ggauth.shiro.user.common.PasswordHelper;
 import ggauth.shiro.user.model.User;
 import ggauth.shiro.user.service.UserService;
+import ggframework.bottom.log.GGLogger;
+import ggframework.bottom.store.mongodb.BasicDBObject;
+import ggframework.bottom.store.mongodb.DBCollection;
+import ggframework.bottom.store.mongodb.DBCursor;
+import ggframework.bottom.store.mongodb.DBObject;
+import ggframework.bottom.store.mongodb.GGDBCursor;
+import ggframework.bottom.store.mongodb.GGMongoOperator;
+import ggframework.bottom.store.mongodb.WriteResult;
 
 import java.util.Date;
 import java.util.List;
@@ -17,7 +19,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import org.bson.Document;
+import utils.MongoUtil;
+
 
 /**
  * @Description:TODO
@@ -31,14 +34,14 @@ import org.bson.Document;
 public class UserServiceImpl implements UserService{
 
 	private PasswordHelper passwordHelper = new PasswordHelper();
-	private DBCollection collection = GGMongoOperator.getGGBusinessDBCollection("gg_user");
 	
 	@Override
 	public boolean createUser(User user) {
 		passwordHelper.encryptPassword(user);
 		GGLogger.info(user.toString());
 		
-		Document doc = GGMongoOperator.newId(collection);
+		DBCollection collection = MongoUtil.getGGUserCollection("gg_user");
+		BasicDBObject doc = GGMongoOperator.newDBObject(collection);
 		doc.append("username", user.getUsername());
 		doc.append("password", user.getPassword());
 		doc.append("salt", user.getSalt());
@@ -49,11 +52,8 @@ public class UserServiceImpl implements UserService{
 		doc.append("create_time", new Date());
 		doc.append("update_time", new Date());
 		
-		WriteResult result = collection.insertOne(doc);
-		if(result.getModifiedCount() == 1) {
-			return true;
-		}
-		return false;
+		collection.insert(doc);
+		return true;
 	}
 
 	@Override
@@ -81,17 +81,19 @@ public class UserServiceImpl implements UserService{
 	 */
 	@Override
 	public User findByUsername(String username) {
-		Document query = new Document();
-		query.append("status", 1);
-		query.append("username", new Document("$regex", Pattern.compile(username, Pattern.CASE_INSENSITIVE)));
+		DBCollection collection = MongoUtil.getGGUserCollection("gg_user");
 		
-		Document fields = new Document();
+		BasicDBObject query = new BasicDBObject();
+		query.append("status", 1);
+		query.append("username", new BasicDBObject("$regex", Pattern.compile(username, Pattern.CASE_INSENSITIVE)));
+		
+		BasicDBObject fields = new BasicDBObject();
 		fields.append("username", 1);
 		fields.append("password", 1);
 		fields.append("salt", 1);
 		fields.append("locked", 1);
 		
-		Document obj = collection.findOne(query, fields);
+		DBObject obj = collection.findOne(query, fields);
 		if(obj != null){
 			User user = new User();
 			user.setId(obj.getLong("_id"));
@@ -118,22 +120,23 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public List<Map<String, Object>> findUsers(Integer rows, Integer page) {
-		
-		Document query = new Document();
+		DBCollection collection = MongoUtil.getGGUserCollection("gg_user");
+		BasicDBObject query = new BasicDBObject();
 		query.put("status", 1);
 		
-		Document sort = new Document();
+		BasicDBObject sort = new BasicDBObject();
     	sort.put("create_time", -1);
     	
     	DBCursor cursor = collection.find(query).sort(sort).limit(rows).skip((page-1)*rows);
-    	List<Map<String, Object>> list = GGDBCursor.getListMap(cursor);
+    	List<Map<String, Object>> list = GGDBCursor.find(cursor);
     	
 		return list;
 	}
 
 	@Override
 	public long findUserCount() {
-		Document query = new Document();
+		DBCollection collection = MongoUtil.getGGUserCollection("gg_user");
+		BasicDBObject query = new BasicDBObject();
 		query.put("status", 1);
 		
 		long count = collection.count(query);
@@ -142,16 +145,16 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public User findByUserId(Long userId) {
-		
-		Document query = new Document();
+		DBCollection collection = MongoUtil.getGGUserCollection("gg_user");
+		BasicDBObject query = new BasicDBObject();
 		query.append("_id", userId);
 		
-		Document fields = new Document();
+		BasicDBObject fields = new BasicDBObject();
 		fields.append("username", 1);
 		fields.append("password", 1);
 		fields.append("salt", 1);
 		fields.append("locked", 1);
-		Document p = collection.findOne(query, fields);
+		DBObject p = collection.findOne(query, fields);
 		
 		User user = new User();
 		user.setId(p.getLong("_id"));
@@ -165,17 +168,19 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public boolean findUserAndUpdate(User user) {
 		passwordHelper.encryptPassword(user);
-		Document query = new Document();
+		
+		DBCollection collection = MongoUtil.getGGUserCollection("gg_user");
+		BasicDBObject query = new BasicDBObject();
 		query.append("_id", user.getId());
 		
-		Document update = new Document();
+		BasicDBObject update = new BasicDBObject();
 		update.append("username", user.getUsername());
 		update.append("password", user.getPassword());
 		update.append("salt", user.getSalt());
 		update.append("operator", "admin");
 		update.append("update_time", new Date());
 		
-		Document doc = collection.findOneAndUpdate(query, new Document("$set", update));	
+		DBObject doc = collection.findAndModify(query, new BasicDBObject("$set", update));	
 		if(doc != null){
 			return true;
 		}
@@ -185,15 +190,16 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public boolean findUserAndDel(Long userId) {
 		
-		Document query = new Document();
+		DBCollection collection = MongoUtil.getGGUserCollection("gg_user");
+		BasicDBObject query = new BasicDBObject();
 		query.append("_id", userId);
 		
-		Document value = new Document();
+		BasicDBObject value = new BasicDBObject();
 		value.append("status", 0);
 		value.append("operator", "admin");
 		value.append("update_time", new Date());
 		
-		Document doc = collection.findOneAndUpdate(query, new Document("$set", value));
+		DBObject doc = collection.findAndModify(query, new BasicDBObject("$set", value));
 		if(doc != null) {
 			return true;
 		}

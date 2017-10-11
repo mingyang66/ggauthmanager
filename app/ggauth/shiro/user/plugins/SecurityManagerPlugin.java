@@ -1,9 +1,9 @@
 
 package ggauth.shiro.user.plugins;
 
-import play.PlayPlugin;
-import framework.store.log.GGLogger;
 import ggauth.shiro.user.securitymanager.SecurityManagerPool;
+import ggframework.bottom.log.GGLogger;
+import play.PlayPlugin;
 
 /**
  * @Description:shiro安全管理器初始化

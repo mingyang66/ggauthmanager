@@ -1,11 +1,11 @@
 
 package ggauth.shiro.user.permission;
 
+import ggframework.bottom.log.GGLogger;
+
 import org.apache.shiro.authz.Permission;
 import org.apache.shiro.authz.permission.PermissionResolver;
 import org.apache.shiro.authz.permission.WildcardPermission;
-
-import framework.store.log.GGLogger;
 
 /**
  * @Description:用于解析权限字符串到Permission实例
