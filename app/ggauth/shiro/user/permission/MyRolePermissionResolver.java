@@ -1,5 +1,5 @@
 
-package ggauth.shiro.user.realm;
+package ggauth.shiro.user.permission;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,7 +17,7 @@ import org.apache.shiro.authz.permission.RolePermissionResolver;
  * @copyright (c) 2017 yaomy Co'Ltd Inc. All rights reserved.
  * @date 2017年9月21日 下午1:17:04
  */
-public class MyPermissionResolver implements RolePermissionResolver{
+public class MyRolePermissionResolver implements RolePermissionResolver{
 
 	@Override
 	public Collection<Permission> resolvePermissionsInRole(String roleString) {

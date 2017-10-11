@@ -1,35 +1,28 @@
 
 package controllers;
 
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.cache.Cache;
-import org.apache.shiro.mgt.RealmSecurityManager;
 import org.apache.shiro.session.ExpiredSessionException;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
-import org.apache.shiro.subject.support.DefaultSubjectContext;
-import org.apache.shiro.util.ThreadContext;
 
 import play.mvc.Before;
 import play.mvc.Controller;
 import framework.store.log.GGLogger;
 import framework.store.util.DateUtil;
 import framework.store.util.ResultUtil;
-import ggauth.shiro.user.common.EhCacheHelper;
 import ggauth.shiro.user.common.ThreadHelper;
-import ggauth.shiro.user.realm.UserRealm;
 
 /**
  * @Description:登录控制类
@@ -119,11 +112,14 @@ public class LoginAction extends Controller{
 			//登录，即身份验证
 			subject.login(token);
 		}
+		PrincipalCollection principal = subject.getPrincipals();
+		List list = principal.asList();
+		GGLogger.info(list);
 		String sb = "是否登录成功:"+subject.isAuthenticated()+"--------是否记住我:"+subject.isRemembered()+
-				"---------sessionid:"+subject.getSession().getId();
+				"---------sessionid:"+subject.getSession().getId()+"--角色是："+subject.hasRole("admin");
 		GGLogger.info(sb);
 		
-		if(subject.isPermitted("system+edit1+10")){
+		if(subject.isPermitted("system+edit+10")){
 			GGLogger.info("----------------------拥有打印权限----------------");
 		} else {
 			GGLogger.info("----------------------无打印权限---------------------");
