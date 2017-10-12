@@ -1,6 +1,7 @@
 
 package controllers;
 
+import ggauth.shiro.user.common.EhCacheHelper;
 import ggauth.shiro.user.common.ThreadHelper;
 import ggframework.bottom.log.GGLogger;
 
@@ -52,9 +53,10 @@ public class LoginAction extends Controller{
 						  "-----登录时间："+DateUtil.dateToString(session.getStartTimestamp(), "yyyy-MM-dd HH:mm:ss")+
 						  "-----最后访问时间："+DateUtil.dateToString(session.getLastAccessTime(), "yyyy-MM-dd HH:mm:ss")+
 						  "-----会话有效时间："+session.getTimeout()/1000+"秒");
-			session.touch();//更新回话最后访问时间，JAVASE项目需要自动的调用更新回话访问的最后时间
+			session.touch();//更新回话最后访问时间，JAVASE项目需要自动的调用更新会话访问的最后时间
 		} catch (UnknownSessionException e) {
 			GGLogger.info("session会话已过期但是subject还未过期");
+			ThreadHelper.removeThreadSubject();//删除线程中的subject
 			redirect("/LoginAction/index");
 		} catch (ExpiredSessionException e) {
 			GGLogger.info("会话过期");
