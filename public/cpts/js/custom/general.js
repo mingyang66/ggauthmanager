@@ -9,7 +9,7 @@
  *  http://themeforest.net/category/site-templates/admin-templates
  */
 
-jQuery.noConflict();
+//jQuery.noConflict();
 
 jQuery(document).ready(function(){
 	/**

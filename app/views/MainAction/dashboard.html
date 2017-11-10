@@ -208,17 +208,17 @@
 	</div>
 </div>
 <script type="text/javascript">
-jQuery(".vernav2.iconmenu li ").click(function(){
-	var url = jQuery(this).attr('dataurl');
+$(".vernav2.iconmenu li ").click(function(){
+	var url = $(this).attr('dataurl');
 	if(url && url.startWith('/')){
 		loadUrl(url,null)
 	}
 	return false;
 });
 var loadUrl = function(url,data){
-	jQuery.ajax({url:url,data,success:function(result){
-		jQuery("#contentwrapper").html('');
-		jQuery("#contentwrapper").html(jQuery(result));
+	$.ajax({url:url,data,success:function(result){
+		$("#contentwrapper").html('');
+		$("#contentwrapper").html($(result));
     }});
 }
 String.prototype.startWith=function(str){     
@@ -230,14 +230,14 @@ String.prototype.endWith=function(str){
   var reg=new RegExp(str+"$");     
   return reg.test(this);        
 }
-jQuery.ajaxSetup({
+$.ajaxSetup({
     complete:function(XMLHttpRequest,textStatus){
           if(textStatus=="parsererror"){
-        	  jQuery.messager.alert('提示信息', "登陆超时！请重新登陆！", 'info',function(){
+        	  $.messager.alert('提示信息', "登陆超时！请重新登陆！", 'info',function(){
                    window.location.href = '/LoginAction/index';
                });
           } else if(textStatus=="error"){
-        	  jQuery.messager.alert('提示信息', "请求超时！请稍后再试！", 'info');
+        	  $.messager.alert('提示信息', "请求超时！请稍后再试！", 'info');
           }
     }
 })
