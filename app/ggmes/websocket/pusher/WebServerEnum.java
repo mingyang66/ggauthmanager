@@ -6,12 +6,12 @@ public enum WebServerEnum {
 
 	server;
 	
-	private static MessageSocketServer pusher = null;
+	private static MessageSocketServer socketServer = null;
 	
-	public static void init(MessageSocketServer socketServer) {
-		pusher = socketServer;
-		if(pusher != null) {
-			pusher.start();
+	public static void init(MessageSocketServer server) {
+		socketServer = server;
+		if(socketServer != null) {
+			socketServer.start();
 		}
 	}
 }
