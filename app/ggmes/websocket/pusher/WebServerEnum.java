@@ -1,14 +1,14 @@
 package ggmes.websocket.pusher;
 
-import ggmes.websocket.server.MessageSocketServer;
+import ggmes.websocket.server.MsgWebSocketServer;
 
 public enum WebServerEnum {
 
 	server;
 	
-	private static MessageSocketServer socketServer = null;
+	private static MsgWebSocketServer socketServer = null;
 	
-	public static void init(MessageSocketServer server) {
+	public static void init(MsgWebSocketServer server) {
 		socketServer = server;
 		if(socketServer != null) {
 			socketServer.start();
