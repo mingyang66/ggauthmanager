@@ -2,6 +2,7 @@ package ggmes.websocket.server;
 
 import java.net.InetSocketAddress;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
@@ -72,6 +73,10 @@ public class MsgWebSocketServer extends WebSocketServer{
 		} else if(ws.isOpen()) {
 			GGLogger.info("ws连接已打开...");
 			System.out.println(msg);
+		}
+		for(Iterator<WebSocket> it=WebSocketBuilder.getWs().keySet().iterator();it.hasNext();) {
+			WebSocket websocket = it.next();
+			websocket.send(msg);
 		}
 	}
 

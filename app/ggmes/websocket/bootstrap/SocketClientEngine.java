@@ -7,14 +7,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ggmes.websocket.client.MsgWebSocketClient;
+import ggmes.websocket.pusher.WebClientEnum;
 import ggmes.websocket.pusher.WebServerEnum;
 import ggmes.websocket.server.MsgWebSocketServer;
 import play.mvc.Controller;
 
-public class SocketServerEngine{
+public class SocketClientEngine{
 
 
 	public static void main(String[] args) {
-		WebServerEnum.SERVER.initServer(new MsgWebSocketServer(8099));
+		try {
+			WebClientEnum.CLIENT.initClient(new MsgWebSocketClient("ws://192.168.152.73:8099"));
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

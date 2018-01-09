@@ -7,23 +7,24 @@ import ggmes.websocket.client.MsgWebSocketClient;
 import ggmes.websocket.server.MsgWebSocketServer;
 import utils.ObjectUtils;
 
-public enum WebServerEnum {
+public enum WebClientEnum {
 
-	SERVER;
+	CLIENT;
 	
-	private static MsgWebSocketServer socketServer = null;
+	private static MsgWebSocketClient socketClient = null;
 	
-	public static void initServer(MsgWebSocketServer server) {
-		socketServer = server;
-		if(ObjectUtils.isNotNull(socketServer)) {
-			socketServer.start();
+	public static void initClient(MsgWebSocketClient client) {
+		socketClient = client;
+		if(ObjectUtils.isNotNull(socketClient)) {
+			socketClient.connect();
+			socketClient.send("测试websocket。。。");
 		}
 		boolean flag = true;
-		int i=100;
+		int i=1000;
 		while(flag) {
-			System.out.println("server..."+(i--));
+			socketClient.send("测试websocket。。。"+(i--));
 			try {
-				Thread.sleep(10000);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -19,6 +19,10 @@ import utils.ObjectUtils;
 public class WebSocketBuilder {
 
 	private static Map<WebSocket, User> wsMap = Maps.newConcurrentMap();
+	
+	public static Map<WebSocket, User> getWs(){
+		return wsMap;
+	}
 	/**
 	 * 
 	 * 方法描述 新增WS对象
