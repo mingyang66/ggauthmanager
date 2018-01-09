@@ -1,13 +1,24 @@
 package ggmes.websocket.server;
 
 import java.net.InetSocketAddress;
+import java.util.Iterator;
 
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
 import ggframework.bottom.log.GGLogger;
+import ggmes.websocket.builder.WebSocketBuilder;
 
+/**
+ * 
+ * websocket服务器
+ * 
+ * @version 1.0
+ * @since JDK1.7
+ * @author yaomy
+ * @date 2018年1月8日 下午4:17:18
+ */
 public class MsgWebSocketServer extends WebSocketServer{
 
 	public MsgWebSocketServer(int port) {
@@ -20,7 +31,9 @@ public class MsgWebSocketServer extends WebSocketServer{
 	@Override
 	public void onClose(WebSocket ws, int arg1, String arg2, boolean arg3) {
 		// TODO Auto-generated method stub
-		System.out.println("------------------onClose-------------------"+ws.isClosed());
+		System.out.println("------------------onClose-------------------"+ws.isClosed()+"---\n"+
+				arg1+"---"+arg2+"---"+arg3);
+		WebSocketBuilder.removeWs(ws);
 	}
 
 	/**
@@ -30,6 +43,10 @@ public class MsgWebSocketServer extends WebSocketServer{
 	public void onError(WebSocket ws, Exception e) {
 		// TODO Auto-generated method stub
 		System.out.println("------------------onError-------------------");
+		if(ws != null) {
+			WebSocketBuilder.removeWs(ws);
+		}
+		e.getStackTrace();
 		
 	}
 
@@ -60,12 +77,16 @@ public class MsgWebSocketServer extends WebSocketServer{
 
 	/**
 	 * 在websocket进行握手之后调用，并且给WebSocket写做准备
+	 * 通过握手可以获取请求头信息
 	 */
 	@Override
 	public void onOpen(WebSocket ws, ClientHandshake shake) {
 		// TODO Auto-generated method stub
 		System.out.println("-----------------onOpen--------------------"+ws.isOpen()+"--"+ws.getReadyState()+"--"+ws.getAttachment());
-		
+		for(Iterator<String> it=shake.iterateHttpFields();it.hasNext();) {
+			String key = it.next();
+			System.out.println(key+":"+shake.getFieldValue(key));
+		}
 	}
 	/**
 	 * 当服务器成功启动时调用。
