@@ -15,7 +15,7 @@ public class UnsubscribeRunable implements Runnable{
 		while(true) {
 			try {
 				Jedis jedis = JedisPoolClient.getJedis();
-				Thread.sleep(1000);
+				Thread.sleep(10);
 				i = i+1;
 				System.out.println("休眠第"+i+"秒,\n客户端数量:\n"+jedis.info("clients"));
 //				if(i/8 == 6) {
