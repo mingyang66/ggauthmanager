@@ -1,7 +1,10 @@
 package redis.v1.client.thread;
 
+import java.util.List;
+
 import redis.clients.jedis.Jedis;
 import redis.v1.client.common.PubSubCommons;
+import redis.v1.client.server.JedisPoolClient;
 import redis.v1.client.server.RedisClient;
 
 public class UnsubscribeRunable implements Runnable{
@@ -11,16 +14,25 @@ public class UnsubscribeRunable implements Runnable{
 		int i = 1;
 		while(true) {
 			try {
-				Thread.sleep(1000*i);
-				System.out.println("休眠第"+i+"秒");
-				i = i*2;
-				if(i/10 == 0) {
-					PubSubCommons.listener.unsubscribe("redisChat1");
-					PubSubCommons.listener.unsubscribe("redisChat");
-					PubSubCommons.listener.unsubscribe("redisChat2");
+				Jedis jedis = JedisPoolClient.getJedis();
+				Thread.sleep(1000);
+				i = i+1;
+				System.out.println("休眠第"+i+"秒,\n客户端数量:\n"+jedis.info("clients"));
+//				if(i/8 == 6) {
+//					PubSubCommons.listener.unsubscribe("redisChat1");
+//					PubSubCommons.listener.unsubscribe("redisChat");
+//					PubSubCommons.listener.unsubscribe("redisChat2");
+//					break;
+//				}
+				int channels = PubSubCommons.listener.getSubscribedChannels();
+				System.out.println("---channels---"+channels);
+				
+				List<String> list = jedis.pubsubChannels("*");
+				for(String channel:list) {
+					System.out.println("---订阅频道："+channel);
 				}
-//				PubSubCommons.listener.onPong("redisChat?");
-				Jedis jedis = RedisClient.getJedis();
+				
+				JedisPoolClient.returnResource(jedis);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

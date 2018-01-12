@@ -1,5 +1,7 @@
 package redis.v1.client.server;
 
+import java.util.List;
+
 import redis.clients.jedis.Jedis;
 
 public enum RedisClient {
@@ -14,5 +16,18 @@ public enum RedisClient {
 			jedis.auth("619868");
 		}
 		return jedis;
+	}
+	/**
+	 * 
+	 * 方法描述 查看发布订阅的频道
+	 *
+	 * @param patterns
+	 * @return
+	 * 
+	 * @author yaomy
+	 * @date 2018年1月11日 下午4:03:36
+	 */
+	public static List<String> pubsubChannels(String patterns){
+		return getJedis().pubsubChannels(patterns);
 	}
 }
