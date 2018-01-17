@@ -1,13 +1,19 @@
 package redis.v1.client.server;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import redis.clients.jedis.HostAndPort;
+import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+import utils.DateUtil;
 
 public class JedisClusterClient {
 
@@ -22,7 +28,6 @@ public class JedisClusterClient {
 	        clusterNodes.add(new HostAndPort("127.0.0.1", 7004));
 	        clusterNodes.add(new HostAndPort("127.0.0.1", 7005));
 	        clusterNodes.add(new HostAndPort("127.0.0.1", 7006));
-	        clusterNodes.add(new HostAndPort("127.0.0.1", 7007));
 	        
 	        JedisPoolConfig config = new JedisPoolConfig();
 	        //控制一个pool可分配多少个jedis实例，通过pool.getResource()来获取；
@@ -44,8 +49,23 @@ public class JedisClusterClient {
 			 * @param soTimeout 响应超时（毫秒）
 			 * @param maxAttempts 出现异常最大重试次数
 			 */
-			cluster = new JedisCluster(clusterNodes, 2000, 2000, 10, "619868", config);
+			cluster = new JedisCluster(clusterNodes, 2000, 2000, 10, config);
+//			cluster = new JedisCluster(clusterNodes, 2000, 2000, 10, "619868", config);
 		}
+	}
+	public static void main(String[] args) {
+		while(true) {
+			try {
+				Thread.sleep(1000);
+				System.out.println(DateUtil.dateToString(new Date(), "yyyy-MM-dd HH:mm:ss")+"---\n"+cluster.getClusterNodes());
+				System.out.println("---------------end--------------------");
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				System.out.println("异常----");
+			}
+			
+		}
+	
 	}
 	
 }
