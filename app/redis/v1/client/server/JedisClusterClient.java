@@ -13,6 +13,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+import redis.v1.client.common.RedisClusterOperator;
 import utils.DateUtil;
 
 public class JedisClusterClient {
@@ -53,12 +54,27 @@ public class JedisClusterClient {
 //			cluster = new JedisCluster(clusterNodes, 2000, 2000, 10, "619868", config);
 		}
 	}
+	/**
+	 * 
+	 * 方法描述 获取集群对象
+	 *
+	 * @return
+	 * 
+	 * @author yaomy
+	 * @date 2018年1月18日 上午11:17:05
+	 */
+	public static JedisCluster getRedisCluster() {
+		return cluster;
+	}
+	
 	public static void main(String[] args) {
 		while(true) {
 			try {
 				Thread.sleep(1000);
 				System.out.println(DateUtil.dateToString(new Date(), "yyyy-MM-dd HH:mm:ss")+"---\n"+cluster.getClusterNodes());
+				System.out.println(cluster.echo("你好，echo!")+"---"+cluster);
 				System.out.println("---------------end--------------------");
+				System.out.println(RedisClusterOperator.keys("*"));
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				System.out.println("异常----");
