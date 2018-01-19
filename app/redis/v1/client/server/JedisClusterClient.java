@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.Jedis;
@@ -68,13 +69,20 @@ public class JedisClusterClient {
 	}
 	
 	public static void main(String[] args) {
+		cluster.set(System.currentTimeMillis()+"", "测试乱码");
 		while(true) {
 			try {
 				Thread.sleep(1000);
-				System.out.println(DateUtil.dateToString(new Date(), "yyyy-MM-dd HH:mm:ss")+"---\n"+cluster.getClusterNodes());
-				System.out.println(cluster.echo("你好，echo!")+"---"+cluster);
-				System.out.println("---------------end--------------------");
-				System.out.println(RedisClusterOperator.keys("*"));
+				System.out.println(DateUtil.dateToString(new Date(), "yyyy-MM-dd HH:mm:ss")+"---");
+				TreeSet<String> keys = RedisClusterOperator.keys("*");
+				for(Iterator<String> it = keys.iterator();it.hasNext();) {
+					String key = it.next();
+					System.out.println(key+":"+cluster.get(key));
+				}
+				System.out.println(keys);
+				System.out.println(RedisClusterOperator.keys("nu?ber"));
+				System.out.println(RedisClusterOperator.keys("nu[ms]ber"));
+				System.out.println("\r-------\n");
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				System.out.println("异常----");
