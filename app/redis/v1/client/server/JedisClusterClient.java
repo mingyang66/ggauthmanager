@@ -9,6 +9,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.commons.lang3.CharSet;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.bouncycastle.crypto.prng.RandomGenerator;
+
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisCluster;
@@ -83,6 +88,10 @@ public class JedisClusterClient {
 				System.out.println(RedisClusterOperator.keys("nu?ber"));
 				System.out.println(RedisClusterOperator.keys("nu[ms]ber"));
 				System.out.println("\r-------\n");
+				System.out.println(RandomStringUtils.randomAlphabetic(18));
+				System.out.println(RandomStringUtils.randomAlphabetic(22));
+				String key = StringUtils.join(java.util.UUID.randomUUID().toString().split("-"));
+				System.out.println(key);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				System.out.println("异常----");
