@@ -1,6 +1,7 @@
-package guava.test;
+package common.lang;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
 
 public class RandomTest {
 
@@ -78,5 +79,58 @@ public class RandomTest {
 		 */
 		random = RandomStringUtils.randomNumeric(15, 20);
 		System.out.println(random);
+		/**
+		 * 生成一个随机的布尔值
+		 */
+		boolean flag = RandomUtils.nextBoolean();
+		System.out.println(flag);
+		/**
+		 * 创建一个bytes随机数组
+		 */
+		byte[] byt = RandomUtils.nextBytes(6);
+		System.out.println(byt);
+		/**
+		 * 返回一个0 - Integer.MAX_VALUE的随机 整数
+		 */
+		int intt = RandomUtils.nextInt();
+		/**
+		 * 返回一个在指定区间内的整数
+		 * startInclusive 可以返回的最小值必须是非负的
+		 * endExclusive 上限（不包括）
+		 */
+		intt = RandomUtils.nextInt(20, 60);
+		/**
+		 * 返回一个在区间0 - Long.MAX_VALUE的long类型的数
+		 */
+		long lontt = RandomUtils.nextLong();
+		/**
+		 * 返回一个在指定区间的long类型的随机数
+		 * startInclusive 可以返回的最小值必须是非负的
+		 * endExclusive 上限（不包括）
+		 */
+		lontt = RandomUtils.nextLong(34, 68);
+		/**
+		 * 返回一个在区间0 - Double.MAX_VALUE double随机数
+		 * 
+		 */
+		double dout = RandomUtils.nextDouble();
+		/**
+		 * 返回一个在指定区间的double随机数
+		 * startInclusive 可以返回的最小值必须是非负的
+		 * endExclusive 上限（不包括）
+		 * 
+		 */
+		dout = RandomUtils.nextDouble(23.0, 34);
+		/**
+		 * 返回一个在0 - Float.MAX_VALUE之间的float类型随机数
+		 */
+		float flott = RandomUtils.nextFloat();
+		/**
+		 * 返回一个指定区间的float类型随机数
+		 * startInclusive 可以返回的最小值必须是非负的
+		 * endExclusive 上限（不包括）
+		 */
+		flott = RandomUtils.nextFloat(23, 56);
+		System.out.println(flott);
 	}
 }
